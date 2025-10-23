@@ -30,9 +30,9 @@
 /* Modal box */
 #themeModal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
   background: white;
   color: black;
   padding: 20px;
@@ -87,7 +87,7 @@ function updateIconVisibility() {
   if (iconBtnVisible === 'show' || (iconBtnVisible === null && w >= iconBreakpoint)) {
     btn.style.display = 'block';
   } else {
-    btn.style.display = 'block';
+    btn.style.display = 'none';
   }
 }
 
@@ -103,7 +103,11 @@ function applyDarkMode() {
 
 // Show modal and set radio buttons according to current settings
 function openModal() {
+  const themeModalId = document.getElementById('themeModal')
+
   document.getElementById('themeModalOverlay').style.display = 'block';
+  themeModalId.style.bottom = '20px';
+  themeModalId.style.right = '20px';
   document.getElementById(darkModeEnabled ? 'dmEnable' : 'dmDisable').checked = true;
   const w = window.innerWidth;
   const showDefault = iconBtnVisible === 'show' || (iconBtnVisible === null && w >= iconBreakpoint);
