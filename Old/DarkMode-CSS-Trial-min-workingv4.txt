@@ -1,0 +1,17 @@
+14:14, 22 October 2025
+Add CSS:
+@media (prefers-color-scheme: dark) {
+  body.darkmode-optin .post-title {
+    background-color: black !important;
+    color: white !important;
+  }
+----
+JS Gadget code unchanged
+--------------------
+
+Works for post title element (h3 element). 
+If darkmode-optin class is present in body (added by JS when darkModeEnabled local storage variable is true), then
+	CSS styles below are applied to post title if Chrome setting is dark mode.
+	CSS styles below are NOT applied to post title if Chrome setting is light mode.
+If darkmode-optin class is absent in body (removed by JS when darkModeEnabled local storage variable is false), then
+	CSS styles below are NOT applied to post title irrespective of Chrome setting being light or dark mode.

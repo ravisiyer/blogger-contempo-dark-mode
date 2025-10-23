@@ -1,0 +1,18 @@
+20:54, 21 October 2025
+Works for post details page.
+@media (prefers-color-scheme: dark) {
+  body, .post-outer, .post-outer-container, .post-title, .post-header, .post-header-line-1, .published, .post-body, .comment-form {
+    background-color: black !important;
+    color: white !important;
+  }
+ #comments * {
+	background-color: black !important;
+	color: white !important;
+  }
+  #comments iframe {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #555;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  }
+}

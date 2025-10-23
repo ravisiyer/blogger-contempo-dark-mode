@@ -1,0 +1,116 @@
+00:20, 22 October 2025
+Below version works for post details page (not post snippets page).
+
+Add this in Theme → Customize → Advanced → Add CSS
+/* Default light mode (Contempo Light normal colors) */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* System dark-mode rules, only active when user has opted in */
+.darkmode-optin {
+  color-scheme: dark;
+}
+
+.darkmode-optin .post-body {
+  background-color: black !important;
+  color: white !important;
+}
+
+.darkmode-optin a {
+  color: #bb86fc !important;
+}
+
+.darkmode-optin blockquote {
+  background-color: #222 !important;
+  color: #e0e0e0 !important;
+}
+
+Now it works. Great! 
+Some improvements:
+1) make the 🌓 button switch its icon or background slightly when dark mode is active
+2) The alert UI is such that Cancel turns off Enable system dark-mode support. That is not so clear. Can we have an Enable/Disable button (with text being Enable if system dark-mode support is disabled and vice-versa) and a Cancel button. Cancel simply cancels the alert without making any changes. Enable/Disable toggles the system dark-mode support.
+
+✅ Final Enhanced Version
+
+<!-- Dark mode opt-in button -->
+<button id="themePromptBtn"
+  style="position:fixed;bottom:1rem;right:1rem;z-index:9999;
+         background:#444;color:white;border:none;border-radius:50%;
+         width:42px;height:42px;cursor:pointer;font-size:20px;transition:all 0.3s ease;">
+  🌓
+</button>
+
+<!-- Custom modal dialog -->
+<div id="themeModal" style="
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5);
+  z-index:10000; align-items:center; justify-content:center;">
+  <div style="
+    background:white; color:black; padding:1rem 1.5rem; border-radius:12px;
+    max-width:320px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+    <p id="themeModalText" style="margin-bottom:1rem; font-size:15px; line-height:1.4;">
+      Dark mode is experimental and may not affect all sections (e.g., comments).
+    </p>
+    <div style="display:flex; justify-content:space-between;">
+      <button id="themeToggleBtn"
+        style="flex:1; margin-right:0.5rem; padding:0.4rem 0.5rem;
+               border:none; border-radius:6px; background:#444; color:white; cursor:pointer;">
+        Enable
+      </button>
+      <button id="themeCancelBtn"
+        style="flex:1; padding:0.4rem 0.5rem;
+               border:none; border-radius:6px; background:#ccc; color:black; cursor:pointer;">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const key = "darkModeOptIn";
+  const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const btn = document.getElementById("themePromptBtn");
+  const modal = document.getElementById("themeModal");
+  const toggleBtn = document.getElementById("themeToggleBtn");
+  const cancelBtn = document.getElementById("themeCancelBtn");
+
+  function applyOptIn() {
+    const optIn = localStorage.getItem(key) === "true";
+    document.body.classList.toggle("darkmode-optin", optIn && darkModeQuery.matches);
+    // Button appearance
+    if (optIn) {
+      btn.style.background = "#ffd700"; // gold highlight
+      btn.style.color = "black";
+    } else {
+      btn.style.background = "#444";
+      btn.style.color = "white";
+    }
+  }
+
+  // React when system dark/light changes
+  darkModeQuery.addEventListener("change", applyOptIn);
+  applyOptIn();
+
+  // Show modal on button click
+  btn.addEventListener("click", () => {
+    const optIn = localStorage.getItem(key) === "true";
+    toggleBtn.textContent = optIn ? "Disable" : "Enable";
+    modal.style.display = "flex";
+  });
+
+  // Handle enable/disable
+  toggleBtn.addEventListener("click", () => {
+    const optIn = localStorage.getItem(key) === "true";
+    localStorage.setItem(key, (!optIn).toString());
+    modal.style.display = "none";
+    applyOptIn();
+  });
+
+  // Handle cancel
+  cancelBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+})();
+</script>

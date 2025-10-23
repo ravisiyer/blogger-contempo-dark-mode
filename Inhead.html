@@ -1,0 +1,11 @@
+<script>
+  (function checkBody() {
+    if (document.body) {
+      if (localStorage.getItem('darkModeEnabled') === 'true') {
+        document.body.classList.add('darkmode-optin');
+      }
+    } else {
+      requestAnimationFrame(checkBody);
+    }
+  })();
+</script>

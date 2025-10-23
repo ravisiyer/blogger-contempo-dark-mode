@@ -1,0 +1,53 @@
+14:35, 22 October 2025
+Add CSS:
+
+/* ============================================================
+   🌚 Dark Mode Colors (used only when darkmode-optin is active)
+============================================================ */
+:root {
+  --dark-bg: #121212;
+  --dark-text: #e0e0e0;
+  --dark-link: #bb86fc;
+  --dark-blockquote-bg: #333333;
+  --dark-blockquote-text: #e0e0e0;
+}
+
+/* ============================================================
+   🖥️ System Dark Mode Support (auto-detect)
+   Active only when user has opted in AND system prefers dark
+============================================================ */
+@media (prefers-color-scheme: dark) {
+  body.darkmode-optin .post-body {
+    background-color: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+  }
+
+  body.darkmode-optin a {
+    color: var(--dark-link) !important;
+  }
+
+  body.darkmode-optin blockquote {
+    background-color: var(--dark-blockquote-bg) !important;
+    color: var(--dark-blockquote-text) !important;
+  }
+
+  body.darkmode-optin .post-title {
+    color: var(--dark-text) !important;
+  }
+}
+------
+
+JS Gadget code unchanged
+--------------------
+
+Works for many but not all elements in blog post page.
+If darkmode-optin class is present in body (added by JS when darkModeEnabled local storage variable is true), then
+	CSS styles above are applied to many elements but not all if Chrome setting is dark mode.
+	CSS styles above are NOT applied to any elements if Chrome setting is light mode.
+If darkmode-optin class is absent in body (removed by JS when darkModeEnabled local storage variable is false), then
+	CSS styles above are NOT applied to any elements irrespective of Chrome setting being light or dark mode.
+	
+So the elements to which the above styles are not getting added (in Chrome dark mode and darkModeEnabled in JS) have to be identified and then added to above CSS. I will do that a little later.
+
+But now the basic approach seems to have got validated. Some issues remain including icon-button not showing for most window widths except close to max. width on PC (at which time menu bar is shown on left). But those are relatively smaller issues.
+
