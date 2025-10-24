@@ -1,0 +1,6 @@
+Menu entry specifications
+=====================
+
+In Pages gadget, add:
+Page name: Appearance Mode
+Page URL: javascript:openModal(false)

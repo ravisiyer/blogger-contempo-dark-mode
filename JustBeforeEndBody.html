@@ -1,0 +1,169 @@
+    <!-- Dark mode support: Code to be added just before end body tag in Theme HTML -->
+    <div id="darkModeCode"></div>
+
+    <style>
+    /* Floating icon button */
+    #themePromptBtn {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      display: block; /* default hidden, JS will control */
+    }
+
+    /* Modal overlay */
+    #themeModalOverlay {
+      display: none;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.5);
+      z-index: 10000;
+    }
+
+    /* Modal box */
+    #themeModal {
+      position: fixed;
+      /* top: 50%; */
+      /* left: 50%; */
+      /* transform: translate(-50%, -50%); */
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      max-width: 90%;
+    }
+
+    /* Modal buttons */
+    #themeModal button {
+      margin: 6px 6px 0 0;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    </style>
+
+    <!-- Floating button -->
+    <button id="themePromptBtn">🌓</button>
+
+    <!-- Modal -->
+    <div id="themeModalOverlay">
+      <div id="themeModal">
+        <p>Dark-mode feature for this blog has some limitations due to Blogger constraints.</p>
+        <form>
+          <p><strong>System Dark Mode Support:</strong></p>
+          <input type="radio" name="darkMode" value="enable" id="dmEnable" /><label for="dmEnable">Enable</label><br />
+          <input type="radio" name="darkMode" value="disable" id="dmDisable" /><label for="dmDisable">Disable</label><br /><br />
+
+          <p><strong>Show Icon Button:</strong></p>
+          <input type="radio" name="iconBtn" value="show" id="iconShow" /><label for="iconShow">Show</label><br />
+          <input type="radio" name="iconBtn" value="hide" id="iconHide" /><label for="iconHide">Hide</label><br /><br />
+
+          <button type="button" id="modalOK">OK</button>
+          <button type="button" id="modalCancel">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+    // Default breakpoint for showing floating icon button
+    const iconBreakpoint = 800;
+
+    // Initialize settings from localStorage
+    let darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+    let iconBtnVisible = localStorage.getItem('iconBtnVisible');
+
+    // Determine initial icon visibility based on window width
+    function updateIconVisibility() {
+      const btn = document.getElementById('themePromptBtn');
+      const w = window.innerWidth;
+      // Blogger Theme HTML editor complains about '&&', so use '&amp;&amp;' instead in Theme HTML
+      // and delete this and above line as even if & is present in a comment it gives error
+      // So in Theme HTML uncomment the following line and delete the line after it
+      // if (iconBtnVisible === 'show' || (iconBtnVisible === null &amp;&amp; w >= iconBreakpoint)) {
+      if (iconBtnVisible === 'show' || (iconBtnVisible === null && w >= iconBreakpoint)) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+
+    // Apply dark mode if enabled
+    function applyDarkMode() {
+      const body = document.body;
+      if (darkModeEnabled) {
+        body.classList.add('darkmode-optin');
+      } else {
+        body.classList.remove('darkmode-optin');
+      }
+    }
+
+    // Show modal and set radio buttons according to current settings
+    function openModal(bottomRight=true) {
+      const themeModalId = document.getElementById('themeModal')
+
+      document.getElementById('themeModalOverlay').style.display = 'block';
+      if (bottomRight) {
+        themeModalId.style.top = 'auto';
+        themeModalId.style.left = 'auto';
+        themeModalId.style.bottom = '20px';
+        themeModalId.style.right = '20px';
+      } else {
+        themeModalId.style.top = '20px';
+        themeModalId.style.left = '20px';
+        themeModalId.style.bottom = 'auto';
+        themeModalId.style.right = 'auto';
+      }
+      document.getElementById(darkModeEnabled ? 'dmEnable' : 'dmDisable').checked = true;
+      const w = window.innerWidth;
+      // Blogger Theme HTML editor complains about '&&', so use '&amp;&amp;' instead in Theme HTML
+      // and delete this and above line as even if & is present in a comment it gives error
+      // So in Theme HTML uncomment the following line and delete the line after it
+      // const showDefault = iconBtnVisible === 'show' || (iconBtnVisible === null &amp;&amp; w >= iconBreakpoint);
+      const showDefault = iconBtnVisible === 'show' || (iconBtnVisible === null && w >= iconBreakpoint);
+      document.getElementById(showDefault ? 'iconShow' : 'iconHide').checked = true;
+    }
+
+    // Hide modal
+    function closeModal() {
+      document.getElementById('themeModalOverlay').style.display = 'none';
+    }
+
+    // OK button handler
+    document.getElementById('modalOK').onclick = function() {
+      darkModeEnabled = document.querySelector('input[name="darkMode"]:checked').value === 'enable';
+      iconBtnVisible = document.querySelector('input[name="iconBtn"]:checked').value;
+
+      localStorage.setItem('darkModeEnabled', darkModeEnabled);
+      localStorage.setItem('iconBtnVisible', iconBtnVisible);
+
+      applyDarkMode();
+      updateIconVisibility();
+      closeModal();
+    };
+
+    // Cancel button handler
+    document.getElementById('modalCancel').onclick = closeModal;
+
+    // Floating button click opens modal
+    document.getElementById('themePromptBtn').onclick = openModal;
+
+    // You can also link a menu item to call openModal() for all breakpoints
+    // Example: <a href="javascript:openModal()">Dark Mode</a>
+
+    // Initialize on page load
+    window.addEventListener('load', () => {
+      applyDarkMode();
+      updateIconVisibility();
+    });
+
+    // Update icon visibility on window resize
+    window.addEventListener('resize', updateIconVisibility);
+    </script>
