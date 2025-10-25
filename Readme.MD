@@ -1,6 +1,7 @@
-Blogger Contempo Light Theme Light/Dark Mode Exploration
+Blogger Contempo Light Theme — Light/Dark Mode Exploration
 ===============================================
-This repository contains an exploration of implementing light/dark mode support for the Blogger Contempo Light Theme. The goal is to enhance user experience by allowing users to switch between light and dark modes based on system settings.
+This repository explores adding light/dark mode support to the Blogger Contempo Light theme.
+The goal is to enhance the user experience by allowing visitors to automatically switch between light and dark modes based on their system settings.
 
 The code is experimental/exploratory and uses a simple approach of changing colours using the universal selector * at a top level. This has the risk of tripping up some features of the theme. It has been tested only with test blogs including test/demo blog given below. I am not using it for my regular Blogger blogs, as of now at least.
 
@@ -21,13 +22,13 @@ Steps to implement this feature
 
 Now you can test the blog's light/dark mode support. 
 
-By default, the 'System Dark Mode Support' feature is disabled. To enable it, click on the 'Appearance Mode' menu entry you added in step 6, and choose Enable under 'System Dark Mode Support' in the modal dialog that appears followed by OK. 
+By default, the 'Follow System Light/Dark Mode Setting' feature is turned off. To enable it, click the 'Appearance Mode' menu entry you added in step 6, then check 'Follow System Light/Dark Mode Setting' in the modal dialog that appears, and click OK. 
 
-In the above dialog, you can also choose to show an icon button at bottom right of window (by default it is set to hide). Once the icon button is shown, you can click on it to show the appearance mode dialog again.
+In the same dialog, you can also choose to show a floating button at the bottom right of the window (it is turned off by default). Once the floating button is visible, you can click it anytime to reopen the Appearance Mode dialog. 
 
-When 'System Dark Mode Support' is enabled, the blog will:
-- use dark mode colours if the system setting is dark mode.
-- use theme's original colours if the system setting is light mode.
+When 'Follow System Light/Dark Mode Setting' is turned on, the blog will:
+- use dark mode colours when the system setting is dark mode.
+- use theme's original colours when the system setting is light mode.
 
 More details about this experimental/exploratory work can be found in my blog post: [Blogger Contempo Light Theme: Challenges involved in providing light/dark mode support](https://raviswdev.blogspot.com/2025/10/contempo-light-theme-dark-mode.html).
 
