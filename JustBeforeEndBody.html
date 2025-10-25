@@ -15,7 +15,7 @@
       padding: 6px 10px;
       cursor: pointer;
       font-size: 18px;
-      display: block; /* default hidden, JS will control */
+      display: none; /* default hidden, JS will control */
     }
 
     /* Modal overlay */
@@ -75,7 +75,7 @@
 
     // Initialize settings from localStorage
     let darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
-    let iconBtnVisible = localStorage.getItem('iconBtnVisible');
+    let iconBtnVisible = localStorage.getItem('iconBtnVisible') === 'true';
 
     // Determine initial icon visibility based on window width
     function updateIconVisibility() {
