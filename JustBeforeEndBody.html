@@ -30,9 +30,6 @@
     /* Modal box */
     #themeModal {
       position: fixed;
-      /* top: 50%; */
-      /* left: 50%; */
-      /* transform: translate(-50%, -50%); */
       background: white;
       color: black;
       padding: 20px;
@@ -56,16 +53,16 @@
     <!-- Modal -->
     <div id="themeModalOverlay">
       <div id="themeModal">
-        <p>Dark-mode feature for this blog has some limitations due to Blogger constraints.</p>
+        <p>Please note that the dark mode feature for this blog has some limitations. Some elements of posts may not become dark (e.g., comments).</p>
         <form>
-          <p><strong>System Dark Mode Support:</strong></p>
-          <input type="radio" name="darkMode" value="enable" id="dmEnable" /><label for="dmEnable">Enable</label><br />
-          <input type="radio" name="darkMode" value="disable" id="dmDisable" /><label for="dmDisable">Disable</label><br /><br />
-
-          <p><strong>Show Icon Button:</strong></p>
-          <input type="radio" name="iconBtn" value="show" id="iconShow" /><label for="iconShow">Show</label><br />
-          <input type="radio" name="iconBtn" value="hide" id="iconHide" /><label for="iconHide">Hide</label><br /><br />
-
+          <p>
+            <input type="checkbox" id="systemDarkMode" />
+            <label for="systemDarkMode">Follow System Light/Dark Mode Setting</label>
+          </p>
+          <p>
+            <input type="checkbox" id="showIconBtn" />
+            <label for="showIconBtn">Show Floating Button</label>
+          </p>
           <button type="button" id="modalOK">OK</button>
           <button type="button" id="modalCancel">Cancel</button>
         </form>
@@ -84,11 +81,7 @@
     function updateIconVisibility() {
       const btn = document.getElementById('themePromptBtn');
       const w = window.innerWidth;
-      // Blogger Theme HTML editor complains about '&&', so use '&amp;&amp;' instead in Theme HTML
-      // and delete this and above line as even if & is present in a comment it gives error
-      // So in Theme HTML uncomment the following line and delete the line after it
-      // if (iconBtnVisible === 'show' || (iconBtnVisible === null &amp;&amp; w >= iconBreakpoint)) {
-      if (iconBtnVisible === 'show' || (iconBtnVisible === null && w >= iconBreakpoint)) {
+      if (iconBtnVisible ?? (w >= iconBreakpoint)) {
         btn.style.display = 'block';
       } else {
         btn.style.display = 'none';
@@ -105,7 +98,7 @@
       }
     }
 
-    // Show modal and set radio buttons according to current settings
+    // Show modal and set checkboxes according to current settings
     function openModal(bottomRight=true) {
       const themeModalId = document.getElementById('themeModal')
 
@@ -121,14 +114,11 @@
         themeModalId.style.bottom = 'auto';
         themeModalId.style.right = 'auto';
       }
-      document.getElementById(darkModeEnabled ? 'dmEnable' : 'dmDisable').checked = true;
+      document.getElementById("systemDarkMode").checked = !!darkModeEnabled;
       const w = window.innerWidth;
-      // Blogger Theme HTML editor complains about '&&', so use '&amp;&amp;' instead in Theme HTML
-      // and delete this and above line as even if & is present in a comment it gives error
-      // So in Theme HTML uncomment the following line and delete the line after it
-      // const showDefault = iconBtnVisible === 'show' || (iconBtnVisible === null &amp;&amp; w >= iconBreakpoint);
-      const showDefault = iconBtnVisible === 'show' || (iconBtnVisible === null && w >= iconBreakpoint);
-      document.getElementById(showDefault ? 'iconShow' : 'iconHide').checked = true;
+      const showDefault = iconBtnVisible ?? (w >= iconBreakpoint);
+
+      document.getElementById("showIconBtn").checked = !!showDefault;
     }
 
     // Hide modal
@@ -138,9 +128,8 @@
 
     // OK button handler
     document.getElementById('modalOK').onclick = function() {
-      darkModeEnabled = document.querySelector('input[name="darkMode"]:checked').value === 'enable';
-      iconBtnVisible = document.querySelector('input[name="iconBtn"]:checked').value;
-
+      darkModeEnabled = document.getElementById("systemDarkMode").checked;
+      iconBtnVisible = document.getElementById("showIconBtn").checked;
       localStorage.setItem('darkModeEnabled', darkModeEnabled);
       localStorage.setItem('iconBtnVisible', iconBtnVisible);
 
