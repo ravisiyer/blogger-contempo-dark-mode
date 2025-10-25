@@ -36,6 +36,14 @@
           display: none !important;
         }
       }
+      /* Fix for horizontal scroll bar in Sidebar (Top) when there is only one Pages gadget in it with 1 page entry.
+      It seems to be a small bug in Contempo Theme as flex-shrink 0 is applied to class sidebar_top > :only-child
+      which gets applied to the single Pages gadget container div causing it to take up full width of sidebar top.
+      The non-zero margin applied to it results in overflow horizontally. */
+      #sidebar_top
+      {
+          overflow-x: hidden !important;
+      }        
     </style>
     <script>
       (function checkBody() {
