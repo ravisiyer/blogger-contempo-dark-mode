@@ -1,5 +1,5 @@
     <!-- Dark mode support: Code to be added just before end body tag in Theme HTML -->
-    <div id="darkModeCode"></div>
+    <div id='darkModeCode'/>
 
     <style>
     /* Floating icon button */
@@ -48,23 +48,23 @@
     </style>
 
     <!-- Floating button -->
-    <button id="themePromptBtn">🌓</button>
+    <button id='themePromptBtn'>🌓</button>
 
     <!-- Modal -->
-    <div id="themeModalOverlay">
-      <div id="themeModal">
+    <div id='themeModalOverlay'>
+      <div id='themeModal'>
         <p>Please note that the dark mode feature for this blog has some limitations. Some elements of posts may not become dark (e.g., comments).</p>
         <form>
           <p>
-            <input type="checkbox" id="systemDarkMode" />
-            <label for="systemDarkMode">Follow System Light/Dark Mode Setting</label>
+            <input id='systemDarkMode' type='checkbox'/>
+            <label for='systemDarkMode'>Follow System Light/Dark Mode Setting</label>
           </p>
           <p>
-            <input type="checkbox" id="showIconBtn" />
-            <label for="showIconBtn">Show Floating Button</label>
+            <input id='showIconBtn' type='checkbox'/>
+            <label for='showIconBtn'>Show Floating Button</label>
           </p>
-          <button type="button" id="modalOK">OK</button>
-          <button type="button" id="modalCancel">Cancel</button>
+          <button id='modalOK' type='button'>OK</button>
+          <button id='modalCancel' type='button'>Cancel</button>
         </form>
       </div>
     </div>
@@ -145,7 +145,7 @@
     document.getElementById('themePromptBtn').onclick = openModal;
 
     // You can also link a menu item to call openModal() for all breakpoints
-    // Example: <a href="javascript:openModal()">Dark Mode</a>
+    // Example: <a href='javascript:openModal()'>Dark Mode</a>
 
     // Initialize on page load
     window.addEventListener('load', () => {
@@ -156,3 +156,4 @@
     // Update icon visibility on window resize
     window.addEventListener('resize', updateIconVisibility);
     </script>
+    
