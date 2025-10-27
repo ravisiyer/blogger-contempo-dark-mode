@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blogger Snippet Gradient Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+    color: #212121;
+    transition: background 0.4s, color 0.4s;
+    padding: 2rem;
+  }
+
+  /* Simulate Blogger snippet box */
+  .post-snippet {
+    width: 400px;
+    height: 60px;                /* restrict height */
+    overflow: hidden;            /* hide overflow text */
+    position: relative;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #757575;
+    margin-top: 2rem;
+  }
+
+  /* Fade overlay like Blogger uses */
+  .post-snippet .snippet-fade {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 100%;
+    background: linear-gradient(to left, #ffffff 0, #ffffff 20%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  /* ---------- DARK MODE ---------- */
+  body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+  }
+
+  body.dark-mode .post-snippet {
+    color: #ccc;
+  }
+
+  body.dark-mode .post-snippet .snippet-fade {
+    background: linear-gradient(to left, #121212 0, #121212 20%, rgba(18, 18, 18, 0) 100%);
+  }
+
+  /* Toggle button styling */
+  .toggle-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .toggle-btn:hover {
+    background: #555;
+  }
+</style>
+</head>
+<body>
+
+<button class="toggle-btn" onclick="toggleMode()">Toggle Dark Mode</button>
+
+<div class="post-snippet">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet arcu ut lacus.
+  Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+  Donec vel orci at enim blandit commodo. Integer finibus lorem a augue efficitur vehicula.
+  Suspendisse potenti.
+  <a class="snippet-fade r-snippet-fade" href="#"></a>
+</div>
+
+<script>
+function toggleMode() {
+  document.body.classList.toggle('dark-mode');
+}
+</script>
+
+</body>
+</html>
