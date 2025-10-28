@@ -2,21 +2,6 @@
     <div id='darkModeCode'/>
 
     <style>
-    /* Floating icon button */
-    /* #themePromptBtn {
-      position: fixed;
-      bottom: 12px;
-      right: 12px;
-      z-index: 9999;
-      background: #444;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-size: 18px;
-      display: none; 
-    } */
 
     /* Floating icon button – transparent look */
     #themePromptBtn {
@@ -29,23 +14,40 @@
       background: rgba(0, 0, 0, 0.25);
 
       color: rgba(1,1,1,.7);
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      /* border: none; */
       border-radius: 50%;
-      width: 44px;
-      height: 44px;
+      padding: 10px;
+      /* width: 44px;
+      height: 44px; */
 
       display: none; /* controlled by JS */
       cursor: pointer;
-      font-size: 22px;
-      line-height: 1;
+      /* font-size: 22px;
+      line-height: 1; */
       text-align: center;
       transition: background 0.3s ease, transform 0.2s ease;
     }
 
     /* Hover / active visual feedback */
     #themePromptBtn:hover {
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.35);
       transform: scale(1.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body.darkmode-optin #themePromptBtn {
+        background: rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    /* SVG icon sizing */
+    #themePromptBtn svg {
+      width: 22px;
+      height: 22px;
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 1.6;
     }
 
     /* Modal overlay */
@@ -78,7 +80,16 @@
     </style>
 
     <!-- Floating button -->
-    <button id='themePromptBtn'>🌓</button>
+    <!-- <button id='themePromptBtn'>🌓</button> -->
+    <button id="themePromptBtn">
+      <!-- Outline moon SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path
+          d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+          stroke="currentColor"
+        />
+      </svg>
+    </button>
 
     <!-- Modal -->
     <div id='themeModalOverlay'>

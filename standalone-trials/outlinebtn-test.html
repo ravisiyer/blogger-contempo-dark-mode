@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transparent Outline Dark Mode Button Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+      background: #fafafa;
+      color: #222;
+    }
+
+    /* Floating icon button */
+    #themePromptBtn {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.25);
+      color: rgba(1, 1, 1, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.3s;
+      /* backdrop-filter: blur(4px); */
+    }
+
+    #themePromptBtn:hover {
+      background: rgba(0, 0, 0, 0.35);
+      transform: scale(1.05);
+    }
+
+    /* SVG icon sizing */
+    #themePromptBtn svg {
+      width: 22px;
+      height: 22px;
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 1.6;
+    }
+
+    /* Optional dark mode simulation */
+    body.dark {
+      background: #121212;
+      color: #ddd;
+    }
+    body.dark #themePromptBtn {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+  </style>
+</head>
+<body>
+  <h2>Transparent Outline Floating Button Test</h2>
+  <p>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    Verylongsentencetotestwrappingbehavioroftextinlinewiththebutton.Thisisjust
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+  </p>
+
+  <button id="themePromptBtn" aria-label="Toggle Dark Mode">
+    <!-- Outline moon SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <path
+        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+        stroke="currentColor"
+      />
+    </svg>
+  </button>
+
+  <script>
+    const btn = document.getElementById('themePromptBtn');
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+  </script>
+</body>
+</html>
