@@ -1,0 +1,42 @@
+<!-- From https://stackoverflow.com/questions/73541663/add-dark-mode-button-to-blogspot -->
+ <!-- Finally the javascript, and since you said it worked before I assume that you already have jQuery installed, so all you need is to place it before </body>: -->
+
+ <!-- Below code is jquery version which CG converted to plain JS version and I am using the latter.
+ <script type='text/javascript'>
+//<![CDATA[
+/* Night Mode/Dark Mode Feature - By TwistBlogg.com */ 
+/* Keep the Credit Intact */ 
+$(document).ready(function(){$("body").toggleClass(localStorage.toggled),$("#modedark").on("click",function(){"Night"!=localStorage.toggled?($("body").toggleClass("Night",!0),localStorage.toggled="Night",$(".section-center").css("display","block")):($("body").toggleClass("Night",!1),localStorage.toggled="",$(".section-center").css("display",""))}),$("body").hasClass("Night")?$("#modedark").prop("checked",!0):$("#modedark").prop("checked",!1)});
+//]]>
+</script> -->
+
+<!-- CG converted JS code -->
+<script type="text/javascript">
+//<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+  const body = document.body;
+  const toggle = document.getElementById('modedark'); // same id used in Blogger HTML
+
+  // Apply saved mode when the page loads
+  const darkModeEnabled = localStorage.getItem('toggled') === 'Night';
+  if (darkModeEnabled) {
+    body.classList.add('Night');
+    if (toggle) toggle.checked = true;
+  }
+
+  // Respond to toggle clicks
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const nightOn = body.classList.toggle('Night');
+      if (nightOn) {
+        localStorage.setItem('toggled', 'Night');
+        document.querySelectorAll('.section-center').forEach(el => el.style.display = 'block');
+      } else {
+        localStorage.removeItem('toggled');
+        document.querySelectorAll('.section-center').forEach(el => el.style.display = '');
+      }
+    });
+  }
+});
+//]]>
+</script>

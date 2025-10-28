@@ -1,0 +1,9 @@
+2025-10-28 17:07:35
+This folder has files related to ChatGPT (CG) chat titled, "TwsitBlogg Light/Dark Mode JS" initiated a few days back.
+
+Add dark mode button to blogspot, https://stackoverflow.com/questions/73541663/add-dark-mode-button-to-blogspot
+
+How to Add Night Mode or Dark Mode in Blogger Blog Easily, https://www.twistblogg.com/2020/04/add-night-mode-in-blogger-blog.html
+
+When I tried this out on https://ravisiyerar.blogspot.com , I found that twistblogg.com CSS code suggestions do not cover main parts of Contempo theme. But this approach has a transparent floating button implementation which is good. More info. about this attempt is covered in my blog post: Blogger Contempo Light Theme: Challenges involved in providing light/dark mode support, https://raviswdev.blogspot.com/2025/10/contempo-light-theme-dark-mode.html . Search for "Attempt to Add Night Mode to the Contempo Light Theme Using Stack Overflow and TwistBlogg Posts/Articles" in the post to locate the related section.
+

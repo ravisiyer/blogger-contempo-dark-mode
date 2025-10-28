@@ -1,0 +1,132 @@
+<!-- From https://stackoverflow.com/questions/73541663/add-dark-mode-button-to-blogspot -->
+<!-- First, the CSS. Placed it anywhere before </head>: -->
+<style type='text/css'>
+/* Button Dark Mode */
+
+.modedark {
+    display: inline-block;
+    float: right;
+    margin-top: 3px;
+    position: fixed;
+    right: 45px;
+    top: 0;
+    z-index: 999;
+border-radius: 100px;
+background: rgba(0, 0, 0, .1) radial-gradient(circle, transparent 2%, rgba(0, 0, 0, .1) 2%) center/15000%;
+}
+
+.modedark svg {
+    width: 24px;
+    height: 24px;
+    vertical-align: -5px;
+    background-repeat: no-repeat !important;
+    content: '';
+    /* content: &#39;&#39;; */
+}
+
+.modedark svg path {
+    fill: #fff;
+}
+
+.modedark .check:checked~.NavMenu {
+    opacity: 1;
+    visibility: visible;
+    top: 45px;
+    min-width: 200px;
+    transition: all .3s ease;
+    z-index: 2;
+}
+
+.iconmode {
+    cursor: pointer;
+    display: block;
+    padding: 8px;
+    background-position: center;
+    transition: all .5s linear;
+}
+
+.iconmode:hover {
+    border-radius: 100px;
+    background: rgba(0, 0, 0, .5) radial-gradient(circle, transparent 2%, rgba(0, 0, 0, .5) 2%) center/15000%;
+}
+
+.check {
+    display: none;
+}
+
+.modedark .iconmode .openmode {
+    display: block;
+}
+
+.modedark .iconmode .closemode {
+    display: none;
+}
+
+.modedark .check:checked~.iconmode .openmode {
+    display: none;
+}
+
+.modedark .check:checked~.iconmode .closemode {
+    display: block;
+}
+
+/* The code below is a combination of the stack overflow article mentioned above and the article it references: 
+https://www.twistblogg.com/2020/04/add-night-mode-in-blogger-blog.html */
+/* 
+// Start with .nightmode (Ravi: should be .Night) followed by element(class or id) {their_properties}  */
+/* .Night {
+  background:#15202B;
+  color:rgba(255,255,255,.7)
+  }
+.Night #outer-wrapper,
+.Night #sidebar-wrapper {
+  background:#323232;
+  color:#fff!important
+  } */
+/* Dark mode (Night mode) styles */
+.Night {
+  background: #15202B;
+  color: rgba(255,255,255,.7);
+}
+
+.Night #outer-wrapper,
+.Night #sidebar-wrapper {
+  background: #323232;
+  color: #fff !important;
+}
+
+/* Additional dark-mode styling for common Blogger elements */
+.Night .header-menu {
+  background: #2B2B2B;
+  color: #fff !important;
+}
+
+.Night .header-menu a,
+.Night .header-menu span {
+  color: #EEEEEE !important;
+}
+
+.Night #PopularPosts1,
+.Night #Label3,
+.Night #Label1 {
+  background: #323232;
+}
+
+.Night #PopularPosts1 a,
+.Night #PopularPosts1 .title,
+.Night #Label1 a,
+.Night #Label3 a,
+.Night #Label1 .title,
+.Night #Label3 .title {
+  color: #eeeeee !important;
+}
+
+.Night .post-body h1,
+.Night .post-body h2,
+.Night .post-body h3,
+.Night .post-body h4,
+.Night .post-title,
+.Night .index-post .post-info > h2 > a {
+  color: #fff !important;
+}
+</style>
