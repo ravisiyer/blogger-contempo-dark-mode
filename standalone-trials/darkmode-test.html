@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Button Test</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #fafafa;
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    /* Dark mode class applied to body */
+    body.dark-mode {
+      background: #121212;
+      color: #ddd;
+    }
+
+    /* Floating icon button – transparent look */
+    #themePromptBtn {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      z-index: 9999;
+
+      background: rgba(0, 0, 0, 0.25);
+      /* backdrop-filter: blur(4px); */
+
+      color: rgba(1,1,1,.7);
+      /* color: white; */
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+
+      cursor: pointer;
+      font-size: 22px;
+      line-height: 1;
+      text-align: center;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #themePromptBtn:hover {
+      background: rgba(0, 0, 0, 0.45);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+      #themePromptBtn {
+        background: rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    /* Example content */
+    .content {
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #3366cc;
+    }
+
+    body.dark-mode a {
+      color: #9fc5ff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="content">
+    <h1>Dark Mode Floating Button Test</h1>
+    <p>
+      This page simulates a simple dark mode setup like in the Blogger Contempo Light theme.
+      Click the floating 🌓 button at the bottom-right corner to toggle dark mode.
+    </p>
+
+    <p>
+      You can test how the transparent button looks over text and links as you scroll.
+    </p>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed a sem
+      ac mauris tincidunt tincidunt. Etiam aliquet urna ac justo volutpat, sed viverra
+      leo vulputate.
+    </p>
+  </div>
+
+  <!-- Floating button -->
+  <button id="themePromptBtn">🌓</button>
+
+  <script>
+    const btn = document.getElementById('themePromptBtn');
+    const body = document.body;
+
+    // Load saved mode from localStorage
+    if (localStorage.getItem('darkModeEnabled') === 'true') {
+      body.classList.add('dark-mode');
+    }
+
+    // Toggle dark mode on button click
+    btn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      const enabled = body.classList.contains('dark-mode');
+      localStorage.setItem('darkModeEnabled', enabled);
+    });
+  </script>
+
+</body>
+</html>
