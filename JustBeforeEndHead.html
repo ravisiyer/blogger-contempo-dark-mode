@@ -20,7 +20,8 @@
           color: var(--dark-text) !important;
         }
         body.darkmode-optin .page a,
-        body.darkmode-optin .sidebar-container a
+        body.darkmode-optin .sidebar-container a,
+        body.darkmode-optin .centered-top-container a
         {
           color: var(--dark-link) !important;
         }
@@ -48,6 +49,9 @@
         body.darkmode-optin .snippet-fade {
           background: linear-gradient(to left, var(--dark-bg) 0, var(--dark-bg) 20%, var(--dark-bg-transparent) 100%) !important;
         }
+        body.darkmode-optin .search .dim-overlay {
+            background-color: transparent !important;
+        }        
       }
       /* Fix for horizontal scroll bar in Sidebar (Top) when there is only one Pages gadget in it with 1 page entry.
       It seems to be a small bug in Contempo Theme as flex-shrink 0 is applied to class sidebar_top > :only-child
