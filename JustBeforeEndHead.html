@@ -8,68 +8,91 @@
         --dark-blockquote-text: #e0e0e0;
         --dark-bg-transparent: rgba(18, 18, 18, 0);        
       }
-      @media (prefers-color-scheme: dark) {
-        body.darkmode-optin .page,
-        body.darkmode-optin .page *,
-        body.darkmode-optin .sidebar-container,
-        body.darkmode-optin .sidebar-container *,
-        body.darkmode-optin .centered-top-container,
-        body.darkmode-optin .centered-top-container *
-        {
-          background-color: var(--dark-bg) !important;
-          color: var(--dark-text) !important;
-        }
-        body.darkmode-optin .page a,
-        body.darkmode-optin .sidebar-container a,
-        body.darkmode-optin .centered-top-container a
-        {
-          color: var(--dark-link) !important;
-        }
-        body.darkmode-optin .page blockquote,
-        body.darkmode-optin .page blockquote *,
-        body.darkmode-optin .sidebar-container blockquote,
-        body.darkmode-optin .sidebar-container blockquote *
-        {
-          background-color: var(--dark-blockquote-bg) !important;
-          color: var(--dark-blockquote-text) !important;
-        }
-        body.darkmode-optin .hamburger-menu .splash-wrapper {
-          display: none !important;
-        }
-        body.darkmode-optin .sidebar-back .splash-wrapper {
-          display: none !important;
-        }
-        body.darkmode-optin .search-expand .splash-wrapper {
-          display: none !important;
-        }
-        body.darkmode-optin .search-expand svg.search-expand-icon {
-          position: relative;
-          z-index: 200;
-        }
-        body.darkmode-optin .snippet-fade {
-          background: linear-gradient(to left, var(--dark-bg) 0, var(--dark-bg) 20%, var(--dark-bg-transparent) 100%) !important;
-        }
-        body.darkmode-optin .search .dim-overlay {
-            background-color: transparent !important;
-        }        
+
+      body.darkmode-optin .page,
+      body.darkmode-optin .page *,
+      body.darkmode-optin .sidebar-container,
+      body.darkmode-optin .sidebar-container *,
+      body.darkmode-optin .centered-top-container,
+      body.darkmode-optin .centered-top-container * {
+        background-color: var(--dark-bg) !important;
+        color: var(--dark-text) !important;
       }
+
+      body.darkmode-optin .page a,
+      body.darkmode-optin .sidebar-container a,
+      body.darkmode-optin .centered-top-container a {
+        color: var(--dark-link) !important;
+      }
+
+      body.darkmode-optin .page blockquote,
+      body.darkmode-optin .page blockquote *,
+      body.darkmode-optin .sidebar-container blockquote,
+      body.darkmode-optin .sidebar-container blockquote * {
+        background-color: var(--dark-blockquote-bg) !important;
+        color: var(--dark-blockquote-text) !important;
+      }
+
+      body.darkmode-optin .hamburger-menu .splash-wrapper,
+      body.darkmode-optin .sidebar-back .splash-wrapper,
+      body.darkmode-optin .search-expand .splash-wrapper {
+        display: none !important;
+      }
+
+      body.darkmode-optin .search-expand svg.search-expand-icon {
+        position: relative;
+        z-index: 200;
+      }
+
+      body.darkmode-optin .snippet-fade {
+        background: linear-gradient(
+          to left,
+          var(--dark-bg) 0,
+          var(--dark-bg) 20%,
+          var(--dark-bg-transparent) 100%
+        ) !important;
+      }
+
+      body.darkmode-optin .search .dim-overlay {
+          background-color: transparent !important;
+      }        
       /* Fix for horizontal scroll bar in Sidebar (Top) when there is only one Pages gadget in it with 1 page entry.
       It seems to be a small bug in Contempo Theme as flex-shrink 0 is applied to class sidebar_top > :only-child
       which gets applied to the single Pages gadget container div causing it to take up full width of sidebar top.
       The non-zero margin applied to it results in overflow horizontally. */
-      #sidebar_top
-      {
+      #sidebar_top {
           overflow-x: hidden !important;
       }
     </style>
+
     <script>
+    // Uncomment below line after copying to Blogger HTML Theme editor to avoid ampersand character errors
+//<![CDATA[  
       (function checkBody() {
         if (document.body) {
-          if (localStorage.getItem('darkModeEnabled') === 'true') {
+          // Default mode is now 'light'
+          const themeMode = localStorage.getItem('themeMode') || 'light';
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+          if (themeMode === 'dark' || (themeMode === 'device' && prefersDark)) {
             document.body.classList.add('darkmode-optin');
+          } else {
+            document.body.classList.remove('darkmode-optin');
           }
+
+          // React to system theme change only when user selected "device"
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (localStorage.getItem('themeMode') === 'device') {
+              if (e.matches) {
+                document.body.classList.add('darkmode-optin');
+              } else {
+                document.body.classList.remove('darkmode-optin');
+              }
+            }
+          });
         } else {
           requestAnimationFrame(checkBody);
         }
       })();
+//]]>
     </script>

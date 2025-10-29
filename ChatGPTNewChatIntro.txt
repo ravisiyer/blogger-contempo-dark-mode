@@ -1,0 +1,15 @@
+This is related to my previous posts on adding dark mode to Blogger Contempo Light Theme. I would first like to provide you the current code which is primarily in two parts:
+1) JustBeforeEndHead.html - Has code to be added just before end head tag in Theme HTML
+2) JustBeforeEndBody.html - Has code to be added just before end body tag in Theme HTML
+
+There is a menu entry for toggling appearance mode: In Layout, in a Pages gadget (add it if not already present), a page is added with following details:
+    - Page name: Appearance Mode
+    - Page URL: javascript:openModal(false)
+	
+Given below is code for JustBeforeEndHead.html . Please note it. Then I will provide next file code.
+[Provide file content]
+
+== Next Message ======================================
+Given below is code for JustBeforeEndBody.html . This completes the code for the Blogger Contempo Light Theme customization. Please note it.
+Then I will tell you the changes I need.
+[Provide file content]
