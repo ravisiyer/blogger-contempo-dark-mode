@@ -80,11 +80,25 @@
       z-index: 10001;
     }
 
-    .dropdown-content a {
+    /* .dropdown-content a {
       display: block;
       padding: 6px 12px;
       text-decoration: none;
       color: inherit;
+    } */
+
+    /* make label and tick sit opposite sides */
+    .dropdown-content a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 12px; /* restores padding from old version */
+      text-decoration: none;
+      color: inherit;
+    }
+    .dropdown-content .tick {
+      margin-left: 8px;
+      opacity: 0.95;
     }
 
     .dropdown-content a:hover {
@@ -283,10 +297,36 @@
       updateButtonIcons();
     };
 
-    // Dropdown open/close
+    // // Dropdown open/close
+    // document.getElementById('dropdownBtn').onclick = function (e) {
+    //   e.stopPropagation();
+    //   dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    // };
+
+    // Dropdown open/close — show tick for current selection
     document.getElementById('dropdownBtn').onclick = function (e) {
       e.stopPropagation();
-      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+      const isHidden = dropdown.style.display === 'none';
+      dropdown.style.display = isHidden ? 'block' : 'none';
+
+      if (isHidden) {
+        // update items and add tick to active
+        const items = dropdown.querySelectorAll('a[data-mode]');
+        items.forEach(item => {
+          // preserve original plain label in data-label if not already set
+          if (!item.dataset.label) {
+            // capture current text without any trailing tick
+            item.dataset.label = item.textContent.replace(/\s*✓\s*$/,'').trim();
+          }
+          // rebuild inner HTML as: label + (tick if selected)
+          const label = item.dataset.label;
+          if (item.dataset.mode === themeMode) {
+            item.innerHTML = `${label}<span class="tick">✓</span>`;
+          } else {
+            item.innerHTML = label;
+          }
+        });
+      }
     };
 
     // Dropdown item click
