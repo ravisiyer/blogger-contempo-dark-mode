@@ -19,16 +19,6 @@
       transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    /* #themePromptBtn:hover {
-      background: rgba(0, 0, 0, 0.35);
-      transform: scale(1.05);
-    } */
-
-    /* body.darkmode-optin #themePromptBtn {
-      background: rgba(255, 255, 255, 0.25);
-      color: rgba(255, 255, 255, 0.7);
-    } */
-
     #themePromptBtn svg {
       width: 22px;
       height: 22px;
@@ -55,16 +45,8 @@
       cursor: pointer;
     }
 
-    /* #themePromptBtn.split-btn button:first-child {
-      border-radius: 50%;
-    }
-    #themePromptBtn.split-btn button:last-child {
-      border-radius: 50%;
-    } */
-
     body.darkmode-optin #themePromptBtn.split-btn button {
-	  background-color: var(--dark-bg) !important;
-      /* background: rgba(255,255,255,0.25); */
+	    background-color: var(--dark-bg) !important;
       color: rgba(255,255,255,0.9);
     }
 
@@ -259,7 +241,6 @@
     };
 
     document.getElementById('modalCancel').onclick = closeModal;
-    // document.getElementById('themePromptBtn').onclick = openModal;
 
     window.addEventListener('load', () => {
       applyDarkMode();
