@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+  <meta name="viewport" content="height=device-height, 
+                        width=device-width, initial-scale=1.0,
+                        minimum-scale=1.0, maximum-scale=1.0">   
+  <!-- <meta name="viewport" content="height=device-height, 
+                        width=device-width, initial-scale=1.0, 
+                        minimum-scale=1.0, maximum-scale=1.0, 
+                        user-scalable=no, target-densitydpi=device-dpi">    -->
   <title>Transparent Outline Dark Mode Button Test</title>
   <style>
     body {
@@ -16,20 +23,27 @@
     /* Floating icon button */
     #themePromptBtn {
       position: fixed;
-      bottom: 0px;
-      right: 0px;
+      bottom: 4px;
+      right: 4px;
       z-index: 9999;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.1);
+      /* background: rgba(0, 0, 0, 0.25); */
       color: rgba(1, 1, 1, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      padding: 2px; 
+      border: 1px solid rgba(0, 0, 0, 1);
+      /* border: 1px solid rgba(255, 255, 255, 0.4); */
+      /* border-radius: 50%; */
+      padding: 0px; 
       display: none;
       cursor: pointer;
       text-align: center;
       transition: background 0.3s ease, transform 0.2s ease;
     }
 
+    body.dark #themePromptBtn {
+      border: 1px solid rgba(255, 255, 255, 1);
+      /* color: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.25); */
+    }
     /* #themePromptBtn:hover {
       background: rgba(0, 0, 0, 0.35);
       transform: scale(1.05);
@@ -45,24 +59,37 @@
     #themePromptBtn.split-btn {
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      border-radius: 50px;
+      gap: 2px;
+      border-radius: 6px; /* slight rounding */
+      /* border-radius: 50px; */
       overflow: hidden;
     }
 
     #themePromptBtn.split-btn button {
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.7);
+      /* background: rgba(0,0,0,0.25); */
       border: 1px solid rgba(255,255,255,0.4);
       color: rgba(255,255,255,0.8);
       padding: 0px;
       border: 0px;
-      border-radius: 50%;
+      /* border-radius: 50%; */
       cursor: pointer;
     }
 
     body.dark #themePromptBtn.split-btn button {
 	    background-color: var(--dark-bg) !important;
       color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,1);
+    }
+
+    @media (min-width: 800px) {
+      #themePromptBtn.split-btn button {
+        padding: 4px;
+      }
+      #themePromptBtn svg {
+        width: 26px;
+        height: 26px;
+      }
     }
 
     #themePromptBtn button:hover {
@@ -175,11 +202,11 @@
     function updateButtonIcons(isDark) {
       // const isDark = document.body.classList.contains('dark');
       if (isDark) {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'inline';
-      } else {
         sunIcon.style.display = 'inline';
         moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'inline';
       }
     }
 
