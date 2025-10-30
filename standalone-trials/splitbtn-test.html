@@ -12,6 +12,15 @@
                         user-scalable=no, target-densitydpi=device-dpi">    -->
   <title>Transparent Outline Dark Mode Button Test</title>
   <style>
+    :root {
+      --dark-bg: #121212;
+      --dark-text: #e0e0e0;
+      --dark-link: #bb86fc;
+      --dark-blockquote-bg: #333333;
+      --dark-blockquote-text: #e0e0e0;
+      --dark-bg-transparent: rgba(18, 18, 18, 0);        
+    }
+
     body {
       font-family: sans-serif;
       line-height: 1.6;
@@ -77,7 +86,8 @@
     }
 
     body.dark #themePromptBtn.split-btn button {
-	    background-color: var(--dark-bg) !important;
+      background: rgba(0,0,0,0.25);
+      /* background-color: var(--dark-bg) !important; */
       color: rgba(255,255,255,0.9);
       border: 1px solid rgba(255,255,255,1);
     }

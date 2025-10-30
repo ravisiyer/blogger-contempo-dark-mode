@@ -5,19 +5,31 @@
     /* Floating icon button – transparent look */
     #themePromptBtn {
       position: fixed;
-      bottom: 0px;
-      right: 0px;
+      bottom: 4px;
+      right: 4px;
       z-index: 9999;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.1);
+      /* background: rgba(0, 0, 0, 0.25); */
       color: rgba(1, 1, 1, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      padding: 2px; 
+      border: 1px solid rgba(0, 0, 0, 1);
+      /* border: 1px solid rgba(255, 255, 255, 0.4); */
+      /* border-radius: 50%; */
+      padding: 0px; 
       display: none;
       cursor: pointer;
       text-align: center;
       transition: background 0.3s ease, transform 0.2s ease;
     }
+
+    body.darkmode-optin #themePromptBtn {
+      border: 1px solid rgba(255, 255, 255, 1);
+      /* color: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.25); */
+    }
+    /* #themePromptBtn:hover {
+      background: rgba(0, 0, 0, 0.35);
+      transform: scale(1.05);
+    } */
 
     #themePromptBtn svg {
       width: 22px;
@@ -30,24 +42,38 @@
     #themePromptBtn.split-btn {
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      border-radius: 50px;
+      gap: 0px;
+      border-radius: 6px; /* slight rounding */
+      /* border-radius: 50px; */
       overflow: hidden;
     }
 
     #themePromptBtn.split-btn button {
       background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.4);
+      /* background: rgba(0,0,0,0.25); */
+      border: 1px solid rgba(255,255,255,0.7);
       color: rgba(255,255,255,0.8);
       padding: 0px;
-      border: 0px;
-      border-radius: 50%;
+      /* border: 0px; */
+      /* border-radius: 50%; */
       cursor: pointer;
     }
 
     body.darkmode-optin #themePromptBtn.split-btn button {
-	    background-color: var(--dark-bg) !important;
+      background: rgba(0,0,0,0);
+	    /* background-color: var(--dark-bg) !important; */
       color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,1);
+    }
+
+    @media (min-width: 800px) {
+      #themePromptBtn.split-btn button {
+        padding: 4px;
+      }
+      #themePromptBtn svg {
+        width: 26px;
+        height: 26px;
+      }
     }
 
     #themePromptBtn button:hover {
@@ -136,7 +162,8 @@
 
       <button id="dropdownBtn" title="Choose Mode ▼">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+          <path fill="currentColor" d="M7 11l5 5 5-5z"/>
+          <!-- <path fill="currentColor" d="M7 10l5 5 5-5z"/> -->
         </svg>
       </button>
 
@@ -256,11 +283,11 @@
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const isDark = themeMode === 'dark' || (themeMode === 'device' && prefersDark);
       if (isDark) {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'inline';
-      } else {
         sunIcon.style.display = 'inline';
         moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'inline';
       }
     }
 
