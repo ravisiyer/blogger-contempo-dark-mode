@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transparent Outline Dark Mode Button Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+      background: #fafafa;
+      color: #222;
+    }
+
+    /* Floating icon button */
+    #themePromptBtn {
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.25);
+      color: rgba(1, 1, 1, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      padding: 2px; 
+      display: none;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    /* #themePromptBtn:hover {
+      background: rgba(0, 0, 0, 0.35);
+      transform: scale(1.05);
+    } */
+
+    #themePromptBtn svg {
+      width: 22px;
+      height: 22px;
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 1.6;
+    }
+    /* Split button layout */
+    #themePromptBtn.split-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    #themePromptBtn.split-btn button {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.8);
+      padding: 0px;
+      border: 0px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    body.dark #themePromptBtn.split-btn button {
+	    background-color: var(--dark-bg) !important;
+      color: rgba(255,255,255,0.9);
+    }
+
+    #themePromptBtn button:hover {
+      background: rgba(0,0,0,0.35);
+    }
+
+    .dropdown-content {
+      position: fixed;
+      bottom: 60px;
+      right: 12px;
+      background: white;
+      color: black;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      padding: 4px 0;
+      z-index: 10001;
+    }
+
+    /* make label and tick sit opposite sides */
+    .dropdown-content a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 12px; /* restores padding from old version */
+      text-decoration: none;
+      color: inherit;
+    }
+    .dropdown-content .tick {
+      margin-left: 8px;
+      opacity: 0.95;
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    body.dark .dropdown-content {
+      background: #222;
+      color: #eee;
+    }
+    body.dark .dropdown-content a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Optional dark mode simulation */
+    body.dark {
+      background: #121212;
+      color: #ddd;
+    }
+    body.dark #themePromptBtn {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+  </style>
+</head>
+<body>
+  <h2>Transparent Outline Floating Button Test</h2>
+  <p>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    Verylongsentencetotestwrappingbehavioroftextinlinewiththebutton.Thisisjust
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+    This page demonstrates a transparent floating outline button with an SVG
+    moon icon. Click the button below to toggle dark mode.<br/><br/>
+  </p>
+
+    <!-- Smart split toggle button -->
+    <div id="themePromptBtn" class="split-btn">
+      <button id="toggleThemeBtn" title="Toggle Light/Dark">
+        <!-- Sun and Moon SVGs (toggle visibility) -->
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.6" />
+          <path stroke="currentColor" stroke-width="1.6" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style="display:none;">
+          <path stroke="currentColor" stroke-width="1.6" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <button id="dropdownBtn" title="Choose Mode ▼">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+        </svg>
+      </button>
+
+      <div id="modeDropdown" class="dropdown-content" style="display:none;">
+        <a href="#" data-mode="light">Light</a>
+        <a href="#" data-mode="dark">Dark</a>
+        <a href="#" data-mode="device">Device</a>
+      </div>
+    </div>
+
+  <script>
+    const btn = document.getElementById('themePromptBtn');
+    // btn.addEventListener('click', () => {
+    //   document.body.classList.toggle('dark');
+    // });
+    // Smart split button functionality
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const dropdown = document.getElementById('modeDropdown');
+
+    function updateButtonIcons(isDark) {
+      // const isDark = document.body.classList.contains('dark');
+      if (isDark) {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'inline';
+      } else {
+        sunIcon.style.display = 'inline';
+        moonIcon.style.display = 'none';
+      }
+    }
+
+    // Toggle button click — force toggle between light/dark
+    document.getElementById('toggleThemeBtn').onclick = function () {
+      const isDark = document.body.classList.toggle('dark');
+      updateButtonIcons(isDark);
+    };
+
+    // Dropdown open/close — show tick for current selection
+    document.getElementById('dropdownBtn').onclick = function (e) {
+      const isDark = document.body.classList.contains('dark');
+      const themeMode = isDark ? 'dark' : 'light';
+      e.stopPropagation();
+      const isHidden = dropdown.style.display === 'none';
+      dropdown.style.display = isHidden ? 'block' : 'none';
+
+      if (isHidden) {
+        // update items and add tick to active
+        const items = dropdown.querySelectorAll('a[data-mode]');
+        items.forEach(item => {
+          // preserve original plain label in data-label if not already set
+          if (!item.dataset.label) {
+            // capture current text without any trailing tick
+            item.dataset.label = item.textContent.replace(/\s*✓\s*$/,'').trim();
+          }
+          // rebuild inner HTML as: label + (tick if selected)
+          const label = item.dataset.label;
+          if (item.dataset.mode === themeMode) {
+            item.innerHTML = `${label}<span class="tick">✓</span>`;
+          } else {
+            item.innerHTML = label;
+          }
+        });
+      }
+    };
+
+    // Dropdown item click
+    dropdown.querySelectorAll('a').forEach(a => {
+      a.onclick = function (e) {
+        e.preventDefault();
+        const selectedThemeMode = this.dataset.mode;
+        let isDark = document.body.classList.contains('dark');
+        const currentThemeMode = isDark ? 'dark' : 'light';
+
+        if (selectedThemeMode === currentThemeMode) {
+          dropdown.style.display = 'none';
+          return; // no change
+        } 
+
+        if (selectedThemeMode === 'device') {
+          alert('Device theme mode not implemented in this demo.');
+          // Here you would implement logic to match system preference  
+          dropdown.style.display = 'none';
+          return;
+        }
+
+        isDark = document.body.classList.toggle('dark');
+        updateButtonIcons(isDark);
+        dropdown.style.display = 'none';
+      };
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      dropdown.style.display = 'none';
+    });
+
+    // Run on load
+    updateButtonIcons();
+
+  </script>
+</body>
+</html>
