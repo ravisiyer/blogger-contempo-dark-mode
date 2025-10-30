@@ -5,14 +5,14 @@
     /* Floating icon button – transparent look */
     #themePromptBtn {
       position: fixed;
-      bottom: 12px;
-      right: 12px;
+      bottom: 0px;
+      right: 0px;
       z-index: 9999;
       background: rgba(0, 0, 0, 0.25);
       color: rgba(1, 1, 1, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 50%;
-      padding: 10px;
+      padding: 2px; 
       display: none;
       cursor: pointer;
       text-align: center;
@@ -39,6 +39,7 @@
     /* Split button layout */
     #themePromptBtn.split-btn {
       display: flex;
+      flex-direction: column;
       gap: 1px;
       border-radius: 50px;
       overflow: hidden;
@@ -48,19 +49,22 @@
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.4);
       color: rgba(255,255,255,0.8);
-      padding: 8px;
+      padding: 0px;
+      border: 0px;
+      border-radius: 50%;
       cursor: pointer;
     }
 
-    #themePromptBtn.split-btn button:first-child {
-      border-radius: 50% 0 0 50%;
+    /* #themePromptBtn.split-btn button:first-child {
+      border-radius: 50%;
     }
     #themePromptBtn.split-btn button:last-child {
-      border-radius: 0 50% 50% 0;
-    }
+      border-radius: 50%;
+    } */
 
     body.darkmode-optin #themePromptBtn.split-btn button {
-      background: rgba(255,255,255,0.25);
+	  background-color: var(--dark-bg) !important;
+      /* background: rgba(255,255,255,0.25); */
       color: rgba(255,255,255,0.9);
     }
 
@@ -79,13 +83,6 @@
       padding: 4px 0;
       z-index: 10001;
     }
-
-    /* .dropdown-content a {
-      display: block;
-      padding: 6px 12px;
-      text-decoration: none;
-      color: inherit;
-    } */
 
     /* make label and tick sit opposite sides */
     .dropdown-content a {
@@ -201,16 +198,11 @@
     let themeMode = localStorage.getItem('themeMode') || 'light';
     let iconBtnVisible = localStorage.getItem('iconBtnVisible') === 'true';
 
-    // Smart split button functionality
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    const dropdown = document.getElementById('modeDropdown');
-
     function updateIconVisibility() {
       const btn = document.getElementById('themePromptBtn');
       const w = window.innerWidth;
       if (iconBtnVisible ?? (w >= iconBreakpoint)) {
-        btn.style.display = 'block';
+        btn.style.display = 'flex';
       } else {
         btn.style.display = 'none';
       }
@@ -230,7 +222,6 @@
     function openModal(bottomRight = true) {
       const themeModalId = document.getElementById('themeModal');
       document.getElementById('themeModalOverlay').style.display = 'block';
-      dropdown.style.display = 'none';
 
       if (bottomRight) {
         themeModalId.style.top = 'auto';
@@ -275,6 +266,11 @@
       updateIconVisibility();
     });
 
+    // Smart split button functionality
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const dropdown = document.getElementById('modeDropdown');
+
     function updateButtonIcons() {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const isDark = themeMode === 'dark' || (themeMode === 'device' && prefersDark);
@@ -296,12 +292,6 @@
       applyDarkMode();
       updateButtonIcons();
     };
-
-    // // Dropdown open/close
-    // document.getElementById('dropdownBtn').onclick = function (e) {
-    //   e.stopPropagation();
-    //   dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
-    // };
 
     // Dropdown open/close — show tick for current selection
     document.getElementById('dropdownBtn').onclick = function (e) {
