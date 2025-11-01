@@ -2,7 +2,7 @@
     <div id='darkModeCode'/>
 
     <style>
-    /* Floating icon button – transparent look */
+    /* Floating icon button with transparent look */
     #themePromptBtn {
       position: fixed;
       bottom: 4px;
@@ -13,7 +13,6 @@
       color: rgba(1, 1, 1, 0.7);
       border: 1px solid rgba(0, 0, 0, 1);
       /* border: 1px solid rgba(255, 255, 255, 0.4); */
-      /* border-radius: 50%; */
       padding: 0px; 
       display: none;
       cursor: pointer;
@@ -23,13 +22,7 @@
 
     body.darkmode-optin #themePromptBtn {
       border: 1px solid rgba(255, 255, 255, 1);
-      /* color: rgba(255, 255, 255, 0.7);
-      background: rgba(0, 0, 0, 0.25); */
     }
-    /* #themePromptBtn:hover {
-      background: rgba(0, 0, 0, 0.35);
-      transform: scale(1.05);
-    } */
 
     #themePromptBtn svg {
       width: 22px;
@@ -40,28 +33,23 @@
 
     /* Split button layout */
     #themePromptBtn.split-btn {
-      display: flex;
+      display: none; /* hidden by default, shown via JS */
       flex-direction: column;
       gap: 0px;
       border-radius: 6px; /* slight rounding */
-      /* border-radius: 50px; */
       overflow: hidden;
     }
 
     #themePromptBtn.split-btn button {
       background: rgba(0,0,0,0.25);
-      /* background: rgba(0,0,0,0.25); */
       border: 1px solid rgba(255,255,255,0.7);
       color: rgba(255,255,255,0.8);
       padding: 0px;
-      /* border: 0px; */
-      /* border-radius: 50%; */
       cursor: pointer;
     }
 
     body.darkmode-optin #themePromptBtn.split-btn button {
       background: rgba(0,0,0,0);
-	    /* background-color: var(--dark-bg) !important; */
       color: rgba(255,255,255,0.9);
       border: 1px solid rgba(255,255,255,1);
     }
@@ -97,7 +85,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 12px; /* restores padding from old version */
+      padding: 6px 12px; 
       text-decoration: none;
       color: inherit;
     }
@@ -148,29 +136,28 @@
 
     <!-- Floating button -->
     <!-- Smart split toggle button -->
-    <div id="themePromptBtn" class="split-btn">
-      <button id="toggleThemeBtn" title="Toggle Light/Dark">
+    <div class='split-btn' id='themePromptBtn'>
+      <button id='toggleThemeBtn' title='Toggle Light/Dark'>
         <!-- Sun and Moon SVGs (toggle visibility) -->
-        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.6" />
-          <path stroke="currentColor" stroke-width="1.6" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        <svg fill='none' id='sunIcon' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+          <circle cx='12' cy='12' r='5' stroke='currentColor' stroke-width='1.6'/>
+          <path d='M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42' stroke='currentColor' stroke-width='1.6'/>
         </svg>
-        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style="display:none;">
-          <path stroke="currentColor" stroke-width="1.6" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-
-      <button id="dropdownBtn" title="Choose Mode ▼">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M7 11l5 5 5-5z"/>
-          <!-- <path fill="currentColor" d="M7 10l5 5 5-5z"/> -->
+        <svg fill='none' id='moonIcon' style='display:none;' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+          <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' stroke='currentColor' stroke-width='1.6'/>
         </svg>
       </button>
 
-      <div id="modeDropdown" class="dropdown-content" style="display:none;">
-        <a href="#" data-mode="light">Light</a>
-        <a href="#" data-mode="dark">Dark</a>
-        <a href="#" data-mode="device">Device</a>
+      <button id='dropdownBtn' title='Choose Mode ▼'>
+        <svg height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'>
+          <path d='M7 11l5 5 5-5z' fill='currentColor'/>
+        </svg>
+      </button>
+
+      <div class='dropdown-content' id='modeDropdown' style='display:none;'>
+        <a data-mode='light' href='#'>Light</a>
+        <a data-mode='dark' href='#'>Dark</a>
+        <a data-mode='device' href='#'>Device</a>
       </div>
     </div>
 
@@ -179,9 +166,8 @@
       <div id='themeModal'>
         <p>Please note that the dark mode feature for this blog has some limitations. Some elements of posts may not become dark (e.g., comments).</p>
         <form>
-          <!-- CHANGED: replaced checkbox with dropdown -->
           <p>
-            <label for='themeModeSelect'>Appearance Mode:</label><br />
+            <label for='themeModeSelect'>Appearance Mode:</label><br/>
             <select id='themeModeSelect'>
               <option value='light'>Light</option>
               <option value='dark'>Dark</option>
@@ -205,12 +191,15 @@
 
     // Default mode is now 'light' (no dark code until user enables)
     let themeMode = localStorage.getItem('themeMode') || 'light';
-    let iconBtnVisible = localStorage.getItem('iconBtnVisible') === 'true';
+
+    // iconBtnVisible can be 'true', 'false', or null (not set)
+    // and we treat null as a special case.
+    let iconBtnVisible = localStorage.getItem('iconBtnVisible');
 
     function updateIconVisibility() {
       const btn = document.getElementById('themePromptBtn');
       const w = window.innerWidth;
-      if (iconBtnVisible ?? (w >= iconBreakpoint)) {
+      if (iconBtnVisible === 'true' || (iconBtnVisible === null && w >= iconBreakpoint)) {
         btn.style.display = 'flex';
       } else {
         btn.style.display = 'none';
@@ -246,7 +235,7 @@
 
       document.getElementById('themeModeSelect').value = themeMode;
       const w = window.innerWidth;
-      const showDefault = iconBtnVisible ?? (w >= iconBreakpoint);
+      const showDefault = iconBtnVisible === 'true' || (iconBtnVisible === null && w >= iconBreakpoint);
       document.getElementById('showIconBtn').checked = !!showDefault;
     }
 
@@ -256,7 +245,7 @@
 
     document.getElementById('modalOK').onclick = function () {
       themeMode = document.getElementById('themeModeSelect').value;
-      iconBtnVisible = document.getElementById('showIconBtn').checked;
+      iconBtnVisible = document.getElementById('showIconBtn').checked ? 'true' : 'false';
 
       localStorage.setItem('themeMode', themeMode);
       localStorage.setItem('iconBtnVisible', iconBtnVisible);
