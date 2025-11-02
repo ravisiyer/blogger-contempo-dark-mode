@@ -9,13 +9,12 @@
   visibility: hidden;
   min-width: 260px;
   max-width: 380px;
-  /* background-color: #333 !important; */
   color: #fff;
   text-align: left;
   border-radius: 8px;
   padding: 12px 16px;
   position: fixed;
-  right: 20px;
+  right: 80px;
   bottom: 20px;
   font-size: 14px;
   z-index: 9999;
@@ -38,15 +37,16 @@
 }
 #toast button {
   margin-left: auto;
-  background: rgba(255,255,255,0.15) !important;
+  background: rgba(255,255,255,0.3) !important;
   color: #fff;
   border: none;
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
+  align-self: flex-end;
 }
 #toast button:hover {
-  background: rgba(255,255,255,0.3) !important;
+  background: rgba(255,255,255,0.4) !important;
 }
 .toast-icons {
   display: flex;
@@ -54,7 +54,6 @@
   align-items: center;
   gap: 4px;
 }
-/* .toast-icons svg { */
 #sunIconToast, #moonIconToast {
   width: 24px;
   height: 24px;
@@ -62,9 +61,6 @@
   padding: 4px;
   background: rgba(255, 255, 255, 0.1) !important;
 }
-/* #toastMsg {
-    background: rgba(255,255,255,0.15) !important;
-} */
 #toast, 
 #toast * {
   word-break: normal !important;
@@ -102,7 +98,7 @@
   const toast = document.getElementById("toast");
   const msg = document.getElementById("toastMsg");
   const btn = document.getElementById("toastBtn");
-  const AUTO_HIDE_DELAY = 6000; // ms
+  const AUTO_HIDE_DELAY = 10000; // ms
   const MAX_SHOWS = 10;
   const LS_KEY = "toastViewCount";
 
@@ -111,8 +107,13 @@
 
   count++;
   localStorage.setItem(LS_KEY, count);
-  msg.innerHTML = `🌗 This blog supports Light and Dark mode. 
-    Use the “Appearance Mode” menu option to switch themes. (${count}/${MAX_SHOWS})`;
+  msg.innerHTML = `For Light and Dark modes, use:<br/>
+  • “Appearance Mode” menu (☰) entry<br/>
+  • Bottom-right button (if set to show)<br/><br/>
+  Hover or press to keep this visible. (${count}/${MAX_SHOWS})`;
+
+  // msg.innerHTML = `For Light and Dark modes, use “Appearance Mode” from menu (☰) or bottom-right button 
+  // (shown or hidden based on setting).<br/>Hover or press to keep message visible. (${count}/${MAX_SHOWS})`;
 
   toast.classList.add("show");
   toast.style.visibility = "visible";
