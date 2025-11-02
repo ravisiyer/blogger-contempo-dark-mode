@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogger Toast Gadget Test</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 3rem;
+      background: #fafafa;
+      color: #333;
+    }
+
+    /* Toast container */
+    #themeToast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      background: #333;
+      color: #fff;
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 90%;
+      z-index: 1000;
+    }
+
+    /* Toast visible */
+    #themeToast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* SVG icons */
+    #themeToast svg {
+      width: 28px;
+      height: 28px;
+      padding: 4px;
+      border-radius: 50%;
+      background: #555;
+      fill: #fff;
+    }
+
+    /* Toast button */
+    #themeToast button {
+      background: #fff;
+      color: #333;
+      border: none;
+      margin-left: 10px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #themeToast button:hover {
+      background: #eee;
+    }
+
+    @media (max-width: 480px) {
+      #themeToast {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.9rem 1rem;
+      }
+      #themeToast button {
+        margin-left: 0;
+        margin-top: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Toast Gadget Test Page</h2>
+  <p>This simulates the Blogger HTML/JS gadget behavior. Reload the page to see counter increase.</p>
+
+  <!-- Toast container -->
+  <div id="themeToast">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 4.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15zm0-2.5a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/>
+    </svg>
+    <svg viewBox="0 0 24 24">
+      <path d="M21.64 13a9 9 0 0 1-9.64-9.64A9 9 0 1 0 21.64 13z"/>
+    </svg>
+    <div id="toastMsg">
+      🌗 This blog supports Light and Dark mode. Use “Appearance Mode” in the menu to switch themes. (<span id="toastCount"></span>)
+    </div>
+    <button id="toastBtn">Got it</button>
+  </div>
+
+  <script>
+    const toast = document.getElementById('themeToast');
+    const toastBtn = document.getElementById('toastBtn');
+    const toastCountSpan = document.getElementById('toastCount');
+    const maxCount = 10;
+    const storageCountKey = 'themeToastCount';
+    const storageDismissedKey = 'themeToastDismissed';
+    let hideTimeout;
+
+    const dismissed = localStorage.getItem(storageDismissedKey);
+    let count = parseInt(localStorage.getItem(storageCountKey) || '0', 10);
+
+    if (!dismissed && count < maxCount) {
+      count++;
+      localStorage.setItem(storageCountKey, count);
+      toastCountSpan.textContent = `${count}/${maxCount}`;
+      setTimeout(() => {
+        toast.classList.add('show');
+        hideTimeout = setTimeout(hideToast, 8000);
+      }, 800);
+    }
+
+    function hideToast() {
+      toast.classList.remove('show');
+    }
+
+    toastBtn.addEventListener('click', () => {
+      localStorage.setItem(storageDismissedKey, 'true');
+      hideToast();
+    });
+
+    toast.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+    toast.addEventListener('mouseleave', () => hideTimeout = setTimeout(hideToast, 3000));
+
+    // Reset button for local testing (not in gadget)
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = '🔄 Reset Toast Test';
+    resetBtn.style.marginTop = '40px';
+    resetBtn.onclick = () => {
+      localStorage.removeItem(storageCountKey);
+      localStorage.removeItem(storageDismissedKey);
+      alert('Toast test data reset. Reload page to start again.');
+    };
+    document.body.appendChild(resetBtn);
+  </script>
+</body>
+</html>
