@@ -2,10 +2,10 @@
 <style>
 /* Hide gadget title from viewers, keep visible in Layout */
 #HTML3 h2.title { display: none !important; }
-#toast, #toast * {
+#toast-container, #toast-container * {
   background-color: #333 !important;
 }
-#toast {
+#toast-container {
   visibility: hidden;
   min-width: 260px;
   max-width: 380px;
@@ -19,6 +19,7 @@
   font-size: 14px;
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
@@ -26,26 +27,42 @@
   transform: translateY(30px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-#toast.show {
+#toast {
+  color: #fff;
+  text-align: left;
+  border-radius: 8px;
+  padding: 4px 4px;
+  /* padding: 12px 16px; */
+  display: flex;
+  /* flex-wrap: wrap;
+  align-items: flex-start; */
+  gap: 10px;
+  /* box-shadow: 0 2px 10px rgba(0,0,0,0.4); */
+  /* opacity: 0; */
+  /* transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease; */
+}
+#toast-container.show {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
-#toast.hide {
+#toast-container.hide {
   opacity: 0;
   transform: translateY(30px);
 }
-#toast button {
-  margin-left: auto;
-  background: rgba(255,255,255,0.3) !important;
+#toast-container button {
+  /* margin-left: auto; */
+  background: #2196f3 !important;
+  /* background: rgba(255,255,255,0.3) !important; */
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 4px 36px;
   cursor: pointer;
-  align-self: flex-end;
+  /* align-self: flex-end; */
 }
-#toast button:hover {
+#toast-container button:hover {
   background: rgba(255,255,255,0.4) !important;
 }
 .toast-icons {
@@ -61,41 +78,45 @@
   padding: 4px;
   background: rgba(255, 255, 255, 0.1) !important;
 }
-#toast, 
-#toast * {
+#toast-container, 
+#toast-container * {
   word-break: normal !important;
   overflow-wrap: normal !important;
 }
 @media (max-width: 480px) {
-  #toast {
-    left: 50%;
+  #toast-container {
+    right: 20px;
+
+    /* left: 50%;
     right: auto;
-    transform: translate(-50%, 30px);
+    transform: translate(-50%, 30px); */
   }
-  #toast.show {
+  /* #toast-container.show {
     transform: translate(-50%, 0);
-  }
+  } */
 }
 </style>
 
-<div id="toast">
-  <div class="toast-icons">
-    <svg id="sunIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="gold" stroke-width="1.8">
-      <circle cx="12" cy="12" r="5"/>
-      <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-    </svg>
-    <svg id="moonIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="skyblue" stroke-width="1.8">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </svg>
+<div id="toast-container">
+  <div id="toast">
+    <div class="toast-icons">
+      <svg id="sunIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="gold" stroke-width="1.8">
+        <circle cx="12" cy="12" r="5"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+      <svg id="moonIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="skyblue" stroke-width="1.8">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+    <span id="toastMsg"></span>
   </div>
-  <span id="toastMsg"></span>
   <button id="toastBtn">Got it</button>
 </div>
 
 <script>
 //<![CDATA[
 (function() {
-  const toast = document.getElementById("toast");
+  const toastContainer = document.getElementById("toast-container");
   const msg = document.getElementById("toastMsg");
   const btn = document.getElementById("toastBtn");
   const AUTO_HIDE_DELAY = 10000; // ms
@@ -112,16 +133,13 @@
   • Bottom-right button (if set to show)<br/><br/>
   Hover or press to keep this visible. (${count}/${MAX_SHOWS})`;
 
-  // msg.innerHTML = `For Light and Dark modes, use “Appearance Mode” from menu (☰) or bottom-right button 
-  // (shown or hidden based on setting).<br/>Hover or press to keep message visible. (${count}/${MAX_SHOWS})`;
-
-  toast.classList.add("show");
-  toast.style.visibility = "visible";
+  toastContainer.classList.add("show");
+  toastContainer.style.visibility = "visible";
 
   let hideTimer;
   function hideToast() {
-    toast.classList.add("hide");
-    setTimeout(() => toast.style.display = "none", 500);
+    toastContainer.classList.add("hide");
+    setTimeout(() => toastContainer.style.display = "none", 500);
   }
 
   function scheduleHide() {
