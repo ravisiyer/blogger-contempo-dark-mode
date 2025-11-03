@@ -1,7 +1,7 @@
 <!-- Title: Light/Dark Mode Note -->
 <style>
 /* Hide gadget title from viewers, keep visible in Layout */
-#HTML3 h2.title { display: none !important; }
+#HTML3 h3.title { display: none !important; }
 #toast-container, #toast-container * {
   background-color: #333 !important;
 }
@@ -12,7 +12,7 @@
   color: #fff;
   text-align: left;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 4px 12px 12px 12px ;
   position: fixed;
   right: 80px;
   bottom: 20px;
@@ -21,7 +21,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
   opacity: 0;
   transform: translateY(30px);
@@ -32,15 +31,8 @@
   text-align: left;
   border-radius: 8px;
   padding: 4px 4px;
-  /* padding: 12px 16px; */
   display: flex;
-  /* flex-wrap: wrap;
-  align-items: flex-start; */
   gap: 10px;
-  /* box-shadow: 0 2px 10px rgba(0,0,0,0.4); */
-  /* opacity: 0; */
-  /* transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease; */
 }
 #toast-container.show {
   visibility: visible;
@@ -52,24 +44,22 @@
   transform: translateY(30px);
 }
 #toast-container button {
-  /* margin-left: auto; */
   background: #2196f3 !important;
-  /* background: rgba(255,255,255,0.3) !important; */
   color: #fff;
   border: none;
   border-radius: 4px;
   padding: 4px 36px;
   cursor: pointer;
-  /* align-self: flex-end; */
 }
 #toast-container button:hover {
-  background: rgba(255,255,255,0.4) !important;
+  background: #1976d2 !important; /* darker blue */
 }
 .toast-icons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 10px;
 }
 #sunIconToast, #moonIconToast {
   width: 24px;
@@ -77,6 +67,23 @@
   border-radius: 50%;
   padding: 4px;
   background: rgba(255, 255, 255, 0.1) !important;
+}
+.toast-message {
+  font-size: 0.95rem;
+}
+
+.toast-message p:first-child {
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.toast-message ul {
+  margin: 0 0 0 1.2rem;
+  padding: 0;
+}
+
+.toast-message li {
+  margin: 0.2rem 0;
 }
 #toast-container, 
 #toast-container * {
@@ -86,14 +93,14 @@
 @media (max-width: 480px) {
   #toast-container {
     right: 20px;
-
-    /* left: 50%;
-    right: auto;
-    transform: translate(-50%, 30px); */
   }
-  /* #toast-container.show {
-    transform: translate(-50%, 0);
-  } */
+  #toastBtn {
+    /* On mobile portrait, the spacing between the bottom of the button and the toast box border
+      appears visually tighter due to smaller viewport and touch-friendly scaling.
+      Slightly increasing bottom margin improves visual balance and comfort.
+      Note: No separate tweak for mobile landscape — rare use case. */
+      margin-bottom: 6px; /* or 8px if it still looks cramped */
+  }
 }
 </style>
 
@@ -108,7 +115,14 @@
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
     </div>
-    <span id="toastMsg"></span>
+    <div class="toast-message">
+      <p>For Light and Dark modes, use:</p>
+      <ul>
+        <li><strong>Appearance Mode</strong> menu (☰) entry</li>
+        <li>Bottom-right button (if set to show)</li>
+      </ul>
+      <p>Hover or press to keep this visible. <span id="toastShownTimes"></span></p>
+    </div>
   </div>
   <button id="toastBtn">Got it</button>
 </div>
@@ -117,7 +131,7 @@
 //<![CDATA[
 (function() {
   const toastContainer = document.getElementById("toast-container");
-  const msg = document.getElementById("toastMsg");
+  const toastShownTimes = document.getElementById("toastShownTimes");
   const btn = document.getElementById("toastBtn");
   const AUTO_HIDE_DELAY = 10000; // ms
   const MAX_SHOWS = 10;
@@ -128,10 +142,7 @@
 
   count++;
   localStorage.setItem(LS_KEY, count);
-  msg.innerHTML = `For Light and Dark modes, use:<br/>
-  • “Appearance Mode” menu (☰) entry<br/>
-  • Bottom-right button (if set to show)<br/><br/>
-  Hover or press to keep this visible. (${count}/${MAX_SHOWS})`;
+  toastShownTimes.innerHTML = `(${count}/${MAX_SHOWS})`;
 
   toastContainer.classList.add("show");
   toastContainer.style.visibility = "visible";
