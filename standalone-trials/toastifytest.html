@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toastify Icon + Message Example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    .toast-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-icons {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<button id="toastBtn">Show Appearance Mode Tip</button>
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  document.getElementById("toastBtn").addEventListener("click", () => {
+    Toastify({
+      text: `
+        <div class="toast-content">
+          <span class="toast-icons">☀️ / 🌙</span>
+          <span>
+            In the blog, the <b>Appearance Mode</b> menu item — available through the
+            top-left navigation menu dropdown (≡) or side panel on large screens — 
+            opens a dialog to choose <b>Light</b> or <b>Dark</b> mode.<br><br>
+            <i>Hover or tap to keep this visible.</i>
+          </span>
+        </div>
+      `,
+      duration: 10000,
+      close: true,
+      escapeMarkup: false, // allow HTML inside toast
+      stopOnFocus: true,   // pause timer on hover/tap
+      gravity: "bottom",
+      position: "center",
+      style: {
+        background: "#333",
+        color: "#fff",
+        borderRadius: "8px",
+        padding: "10px 14px",
+        maxWidth: "320px",
+        lineHeight: "1.4",
+      },
+    }).showToast();
+  });
+</script>
+
+</body>
+</html>

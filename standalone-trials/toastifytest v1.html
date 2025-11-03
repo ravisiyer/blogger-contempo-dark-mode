@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toastify Gadget Test</title>
+
+<!-- Toastify dependency -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<style>
+body {
+  background: #fafafa;
+  font-family: system-ui, sans-serif;
+  padding: 40px;
+}
+
+/* Toastify custom box */
+.custom-toast {
+  background: #333;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  max-width: 360px;
+  text-align: left;
+}
+.custom-toast p {
+  margin: 0.5rem 0;
+}
+.custom-toast ul {
+  margin: 0 0 0 1.2rem;
+  padding: 0;
+}
+.custom-toast li {
+  margin: 0.25rem 0;
+}
+.custom-toast button {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 4px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.custom-toast button:hover {
+  background: rgba(255,255,255,0.3);
+}
+</style>
+</head>
+<body>
+
+<h2>Toastify-based Toast Test</h2>
+<p>Click the button below to show the toast.</p>
+<button onclick="showToast()">Show Toast</button>
+
+<script>
+//<![CDATA[
+function showToast() {
+  const toastHTML = `
+    <div class="custom-toast">
+      <p>For Light and Dark modes, use:</p>
+      <ul>
+        <li><strong>Appearance Mode</strong> menu (☰) entry</li>
+        <li>Bottom-right button (if set to show)</li>
+      </ul>
+      <p>Hover or tap to keep this visible.</p>
+      <button onclick="this.closest('.toastify').remove()">Got it</button>
+    </div>`;
+
+  Toastify({
+    node: (() => {
+      const el = document.createElement("div");
+      el.innerHTML = toastHTML.trim();
+      return el.firstElementChild;
+    })(),
+    duration: 10000,        // Auto-hide after 10 s
+    gravity: "bottom",      // Bottom position
+    position: "right",      // Align right
+    stopOnFocus: true,      // Pause on hover/tap
+    close: false,           // No default close icon
+  }).showToast();
+}
+//]]>
+</script>
+
+</body>
+</html>
