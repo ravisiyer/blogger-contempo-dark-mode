@@ -106,9 +106,8 @@
   #toast-container {
     right: 20px;
   }
-  /* #toastBtn { */
   .hover-message {
-    /* On mobile portrait, the spacing between the bottom of the button and the toast box border
+    /* On mobile portrait, the spacing between the last element in the toast and the toast box border
       appears visually tighter due to smaller viewport and touch-friendly scaling.
       Slightly increasing bottom margin improves visual balance and comfort.
       Note: No separate tweak for mobile landscape — rare use case. */
@@ -182,6 +181,7 @@
   }
 
   function hideToast() {
+    clearTimeout(hideTimer);
     toastContainer.classList.remove("show");
     toastContainer.classList.add("hide");
     setTimeout(() => toastContainer.style.display = "none", 500);
@@ -199,8 +199,6 @@
   toastContainer.addEventListener("mouseenter", () => clearTimeout(hideTimer));
   toastContainer.addEventListener("mouseleave", scheduleHide);
   toastContainer.addEventListener("touchstart", () => clearTimeout(hideTimer));
-  // Commented below line as tap to keep toast visible gets cancelled by it on touchend
-  // toastContainer.addEventListener("touchend", scheduleHide);
 
   btn.onclick = function() {
     localStorage.setItem(LS_KEY, MAX_SHOWS);
