@@ -1,58 +1,72 @@
-<!-- Title: Light/Dark Mode Note -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogger Toast Gadget Test</title>
+
+  <!-- Title: Light/Dark Mode Note -->
 <style>
 /* Hide gadget title from viewers, keep visible in Layout */
-#HTML3 h2.title { display: none !important; }
-#toast, #toast * {
+#HTML3 h3.title { display: none !important; }
+#toast-container, #toast-container * {
   background-color: #333 !important;
 }
-#toast {
+#toast-container {
   visibility: hidden;
   min-width: 260px;
   max-width: 380px;
-  /* background-color: #333 !important; */
   color: #fff;
   text-align: left;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 4px 12px 12px 12px ;
   position: fixed;
-  right: 20px;
+  right: 80px;
   bottom: 20px;
   font-size: 14px;
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-#toast.show {
+#toast {
+  color: #fff;
+  text-align: left;
+  border-radius: 8px;
+  padding: 4px 4px;
+  display: flex;
+  gap: 10px;
+}
+#toast-container.show {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
-#toast.hide {
+#toast-container.hide {
   opacity: 0;
   transform: translateY(30px);
 }
-#toast button {
-  margin-left: auto;
-  background: rgba(255,255,255,0.15) !important;
+#toast-container button {
+  background: #2196f3 !important;
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 4px 36px;
   cursor: pointer;
 }
-#toast button:hover {
-  background: rgba(255,255,255,0.3) !important;
+#toast-container button:hover {
+  background: #1976d2 !important; /* darker blue */
 }
 .toast-icons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 10px;
 }
 #sunIconToast, #moonIconToast {
   width: 24px;
@@ -61,47 +75,75 @@
   padding: 4px;
   background: rgba(255, 255, 255, 0.1) !important;
 }
-/* #toastMsg {
-    background: rgba(255,255,255,0.15) !important;
-} */
-#toast, 
-#toast * {
+.toast-message {
+  font-size: 0.95rem;
+}
+
+.toast-message p:first-child {
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.toast-message ul {
+  margin: 0 0 0 1.2rem;
+  padding: 0;
+}
+
+.toast-message li {
+  margin: 0.2rem 0;
+}
+#toast-container, 
+#toast-container * {
   word-break: normal !important;
   overflow-wrap: normal !important;
 }
 @media (max-width: 480px) {
-  #toast {
-    left: 50%;
-    right: auto;
-    transform: translate(-50%, 30px);
+  #toast-container {
+    right: 20px;
   }
-  #toast.show {
-    transform: translate(-50%, 0);
+  #toastBtn {
+    /* On mobile portrait, the spacing between the bottom of the button and the toast box border
+      appears visually tighter due to smaller viewport and touch-friendly scaling.
+      Slightly increasing bottom margin improves visual balance and comfort.
+      Note: No separate tweak for mobile landscape — rare use case. */
+      margin-bottom: 6px; /* or 8px if it still looks cramped */
   }
 }
 </style>
-
-<div id="toast">
-  <div class="toast-icons">
-    <svg id="sunIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="gold" stroke-width="1.8">
-      <circle cx="12" cy="12" r="5"/>
-      <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-    </path></circle></svg>
-    <svg id="moonIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="skyblue" stroke-width="1.8">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </path></svg>
+</head>
+<body>
+<p id="logp"></p>
+<div id="toast-container">
+  <div id="toast">
+    <div class="toast-icons">
+      <svg id="sunIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="gold" stroke-width="1.8">
+        <circle cx="12" cy="12" r="5"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+      <svg id="moonIconToast" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="skyblue" stroke-width="1.8">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+    <div class="toast-message">
+      <p>For Light and Dark modes, use:</p>
+      <ul>
+        <li><strong>Appearance Mode</strong> menu (☰) entry</li>
+        <li>Bottom-right button (if set to show)</li>
+      </ul>
+      <p>Hover or tap to keep this visible. <span id="toastShownTimes"></span></p>
+    </div>
   </div>
-  <span id="toastMsg"></span>
   <button id="toastBtn">Got it</button>
 </div>
 
 <script>
 //<![CDATA[
 (function() {
-  const toast = document.getElementById("toast");
-  const msg = document.getElementById("toastMsg");
+  const toastContainer = document.getElementById("toast-container");
+  const toastShownTimes = document.getElementById("toastShownTimes");
   const btn = document.getElementById("toastBtn");
-  const AUTO_HIDE_DELAY = 6000; // ms
+  const logp = document.getElementById("logp");
+  const AUTO_HIDE_DELAY = 10000; // ms
   const MAX_SHOWS = 10;
   const LS_KEY = "toastViewCount";
 
@@ -110,29 +152,65 @@
 
   count++;
   localStorage.setItem(LS_KEY, count);
-  msg.innerHTML = `🌗 This blog supports Light and Dark mode. 
-    Use the “Appearance Mode” menu option to switch themes. (${count}/${MAX_SHOWS})`;
+  toastShownTimes.innerHTML = `(${count}/${MAX_SHOWS})`;
 
-  toast.classList.add("show");
-  toast.style.visibility = "visible";
+  toastContainer.classList.add("show");
+  toastContainer.style.visibility = "visible";
 
   let hideTimer;
-  function hideToast() {
-    toast.classList.add("hide");
-    setTimeout(() => toast.style.display = "none", 500);
+
+    // --- Toast close logic helpers ---
+  function handleOutsideClick(e) {
+    if (toastContainer.contains(e.target)) return; // Ignore clicks inside toast
+    hideToast();
   }
-/*
+
+  function addOutsideCloseListeners() {
+    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+  }
+
+  function removeOutsideCloseListeners() {
+    document.removeEventListener("click", handleOutsideClick);
+    document.removeEventListener("touchstart", handleOutsideClick);
+  }
+
+  function hideToast() {
+    toastContainer.classList.remove("show");
+    toastContainer.classList.add("hide");
+    setTimeout(() => toastContainer.style.display = "none", 500);
+    removeOutsideCloseListeners();
+  }
+
   function scheduleHide() {
     hideTimer = setTimeout(hideToast, AUTO_HIDE_DELAY);
   }
+
+  function debugTouchEnd() {
+    console.log("Touch end detected v2");
+    logp.innerHTML += "Touch end detected v2<br/>";
+    scheduleHide();
+  }
+
+  function debugTouchStart() {
+    console.log("Touch start detected v2");
+    logp.innerHTML += "Touch start detected v2<br/>";
+    clearTimeout(hideTimer)
+  }
+
+  addOutsideCloseListeners();
   scheduleHide();
 
   // Pause auto-hide on hover/touch
-  toast.addEventListener("mouseenter", () => clearTimeout(hideTimer));
-  toast.addEventListener("mouseleave", scheduleHide);
-  toast.addEventListener("touchstart", () => clearTimeout(hideTimer));
-  toast.addEventListener("touchend", scheduleHide);
-*/
+  toastContainer.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+  toastContainer.addEventListener("mouseleave", scheduleHide);
+  toast.addEventListener("touchstart", debugTouchStart);
+  // toastContainer.addEventListener("touchstart", debugTouchStart);
+  // toastContainer.addEventListener("touchstart", () => clearTimeout(hideTimer));
+  toast.addEventListener("touchend", debugTouchEnd);
+  // toastContainer.addEventListener("touchend", debugTouchEnd);
+  // toastContainer.addEventListener("touchend", scheduleHide);
+
   btn.onclick = function() {
     localStorage.setItem(LS_KEY, MAX_SHOWS);
     hideToast();
@@ -140,3 +218,7 @@
 })();
 //]]>
 </script>
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+</body>
+</html>

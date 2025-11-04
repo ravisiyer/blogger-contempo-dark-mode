@@ -49,6 +49,7 @@
   border: none;
   border-radius: 4px;
   padding: 4px 36px;
+  margin-top: 4px;
   cursor: pointer;
 }
 #toast-container button:hover {
@@ -83,8 +84,19 @@
 }
 
 .toast-message li {
-  margin: 0.2rem 0;
+  margin: 0.5rem 0;
 }
+
+.hover-message {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 4px;
+}
+
+.hover-message p {
+  margin: 0.5rem 0;
+}
+
 #toast-container, 
 #toast-container * {
   word-break: normal !important;
@@ -94,7 +106,8 @@
   #toast-container {
     right: 20px;
   }
-  #toastBtn {
+  /* #toastBtn { */
+  .hover-message {
     /* On mobile portrait, the spacing between the bottom of the button and the toast box border
       appears visually tighter due to smaller viewport and touch-friendly scaling.
       Slightly increasing bottom margin improves visual balance and comfort.
@@ -121,10 +134,13 @@
         <li><strong>Appearance Mode</strong> menu (☰) entry</li>
         <li>Bottom-right button (if set to show)</li>
       </ul>
-      <p>Hover or press to keep this visible. <span id="toastShownTimes"></span></p>
     </div>
   </div>
   <button id="toastBtn">Got it</button>
+  <div class="hover-message">
+    <p >Hover or tap to keep this message visible.</p>
+    <p>Click or tap outside to dismiss. <span id="toastShownTimes"></span></p>
+  </div>
 </div>
 
 <script>
@@ -142,27 +158,49 @@
 
   count++;
   localStorage.setItem(LS_KEY, count);
-  toastShownTimes.innerHTML = `(${count}/${MAX_SHOWS})`;
+  toastShownTimes.innerHTML = `(${count}/${MAX_SHOWS} shows)`;
 
   toastContainer.classList.add("show");
   toastContainer.style.visibility = "visible";
 
   let hideTimer;
+
+    // --- Toast close logic helpers ---
+  function handleOutsideClick(e) {
+    if (toastContainer.contains(e.target)) return; // Ignore clicks inside toast
+    hideToast();
+  }
+
+  function addOutsideCloseListeners() {
+    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+  }
+
+  function removeOutsideCloseListeners() {
+    document.removeEventListener("click", handleOutsideClick);
+    document.removeEventListener("touchstart", handleOutsideClick);
+  }
+
   function hideToast() {
+    toastContainer.classList.remove("show");
     toastContainer.classList.add("hide");
     setTimeout(() => toastContainer.style.display = "none", 500);
+    removeOutsideCloseListeners();
   }
 
   function scheduleHide() {
-    hideTimer = setTimeout(hideToast, AUTO_HIDE_DELAY);
+   hideTimer = setTimeout(hideToast, AUTO_HIDE_DELAY);
   }
+
+  addOutsideCloseListeners();
   scheduleHide();
 
   // Pause auto-hide on hover/touch
-  toast.addEventListener("mouseenter", () => clearTimeout(hideTimer));
-  toast.addEventListener("mouseleave", scheduleHide);
-  toast.addEventListener("touchstart", () => clearTimeout(hideTimer));
-  toast.addEventListener("touchend", scheduleHide);
+  toastContainer.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+  toastContainer.addEventListener("mouseleave", scheduleHide);
+  toastContainer.addEventListener("touchstart", () => clearTimeout(hideTimer));
+  // Commented below line as tap to keep toast visible gets cancelled by it on touchend
+  // toastContainer.addEventListener("touchend", scheduleHide);
 
   btn.onclick = function() {
     localStorage.setItem(LS_KEY, MAX_SHOWS);
