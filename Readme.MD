@@ -2,15 +2,30 @@
 
 This light/dark mode customization prototype and its implementation approach may be useful for Blogger blogs using the Contempo Light theme that are regularly monitored and maintained. 
 
-| <img src="ScrShots/Mobile-DarkMode.jpeg" width="250"> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <img src="ScrShots/Mobile-LightMode.jpeg" width="250"> |
-|:--:|:--:|:--:|
-| *Mobile Dark Mode* |  | *Mobile Light Mode* |
+<table >
+  <tr>
+    <td align="center">
+      <img src="ScrShots/Mobile-DarkMode.jpeg" width="250" alt="Mobile Dark Mode"><br>
+      <em>Mobile Dark Mode</em>
+    </td>
+    <td width="30"></td> <!-- space between images -->
+    <td align="center">
+      <img src="ScrShots/Mobile-LightMode.jpeg" width="250" alt="Mobile Light Mode"><br>
+      <em>Mobile Light Mode</em>
+    </td>
+  </tr>
+</table>
 
 It uses an optional, virtually independent of Theme HTML, onboarding toast gadget to inform first-time visitors about the blog's light/dark mode support. This onboarding toast gadget may also be useful for Blogger blogs using any Blogger theme, which want to inform first-time visitors about some feature of the blog. 
 
-| <img src="ScrShots/Mobile-OnboardingToast.jpeg" width="250"> |
-|:--:|
-| *Mobile Onboarding Toast* |
+<table >
+  <tr>
+    <td align="center">
+      <img src="ScrShots/Mobile-OnboardingToast.jpeg" width="250" alt="Mobile Onboarding Toast"><br>
+      <em>Mobile Onboarding Toast</em>
+    </td>
+  </tr>
+</table>
 
 ## Overview
 
@@ -39,9 +54,14 @@ The floating button is a transparent split button with two parts arranged vertic
 - Clicking the top part of the button (sun/moon icon) toggles between light and dark modes.
 - Clicking the bottom part of the button (down-pointing triangle icon) opens a *Choose Mode* dropdown with Light, Dark and Device (System Default) options. The current selection is indicated by a check mark. 
  
-| <img src="ScrShots/ChooseModeButton.png" > |
-|:--:|
-| *Choose Mode Dropdown* |
+<table >
+  <tr>
+    <td align="center">
+      <img src="ScrShots/ChooseModeButton.png" alt="Choose Mode Dropdown"><br>
+      <em>Choose Mode Dropdown</em>
+    </td>
+  </tr>
+</table>
 
 For first-time visitors (who have not yet used the above dialog to set their preferences):
 - When the window width is large (≥ 800 px), the floating button for appearance mode is shown in the bottom-right corner.
