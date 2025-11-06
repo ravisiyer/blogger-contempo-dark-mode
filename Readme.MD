@@ -12,11 +12,11 @@ This light/dark mode customization prototype and implementation approach may be 
 |:--:|
 | *Mobile Onboarding Toast* |
 
-The main theme customization code uses a simple approach of changing colours using the universal selector * at a top level. This has the risk of tripping up some features of the theme. During testing, some such issues were identified (e.g., Blogger menu dropdown button not being visible in dark mode) and fixed using CSS overrides It has been tested only with test blogs including test/demo blog given below for which it works quite well though it is not perfect (e.g., Comments box does not get switched to dark mode). I am not using it for my regular Blogger blogs, as of now at least, but may consider using it for one of my Blogger blogs which I regularly monitor and maintain. 
+The main theme customization code uses a simple approach of changing colours using the universal selector * at a top level when dark mode is selected. This has the risk of tripping up some features of the theme. During testing, some such issues were identified (e.g., Blogger menu dropdown button not being visible in dark mode) and fixed using CSS overrides. It has been tested only with test blogs including test/demo blog given below for which it works quite well though it is not perfect (e.g., Comments box does not get switched to dark mode). I am not using it for my regular Blogger blogs, as of now at least, but may consider using it for one of my Blogger blogs which I regularly monitor and maintain. 
 
 Overall, I think it does quite a good job of providing light/dark mode support for Contempo Light theme but it needs more testing to ensure that it takes care of most use cases (except Comments box as that may be hard to fix due to it being in a different frame, if I recall correctly).
 
-This light/dark mode prototype was built using the 2025 Blogger Contempo Light theme (below demo blog was created in Oct. 2025) and is frozen at that theme version — Blogger will not automatically overwrite it with later changes made to Google’s default Contempo Light theme. To upgrade to a newer version of the theme (for example, to incorporate security patches or new features), a developer will need to review the customization code against the updated default theme and make any required adjustments. So this implemntation has this fragility on upgrade but I guess that all Blogger dark/light mode theme customiztions will have similar fragility on upgrade as Google currently does not seem to provide built-in support for dark/light mode in Blogger themes.
+This light/dark mode prototype was built using the 2025 Blogger Contempo Light theme (below demo blog was created in Oct. 2025) and is frozen at that theme version — Blogger will not automatically overwrite it with later changes made to Google’s default Contempo Light theme. To upgrade to a newer version of the theme (for example, to incorporate security patches or new features), a developer will need to review the customization code against the updated default theme and make any required adjustments. So this implementation has this fragility on upgrade but I guess that all Blogger dark/light mode theme customizations will have similar fragility on upgrade as Blogger (Google) currently does not seem to provide built-in support for dark/light mode in Blogger themes.
 
 **[Contempo Theme Toggle Light/Dark Test/Demo Blog](https://contempo-ld.blogspot.com/)**
 
@@ -24,13 +24,13 @@ In the blog, the Appearance Mode menu item — available from the top-left navig
 - Select the appearance mode — Light, Dark, or Device (System Default).
 - Choose whether to show or hide the floating button for appearance mode, which appears at the bottom-right corner of the blog window. 
 
-The floating button is a split button with two parts arranged vertically:
-- Clicking the top part of the button toggles between light and dark modes.
-- Clicking the bottom part of the button (downward pointing arrow) opens a dropdown with Light, Dark and Device (System Default) options. The current selection is indicated by a check mark. 
+The floating button is a transparent split button with two parts arranged vertically:
+- Clicking the top part of the button (sun/moon icon) toggles between light and dark modes.
+- Clicking the bottom part of the button (down-pointing triangle icon) opens a *Choose Mode* dropdown with Light, Dark and Device (System Default) options. The current selection is indicated by a check mark. 
  
 | <img src="ScrShots/ChooseModeButton.png" > |
 |:--:|
-| *Choose Mode Button* |
+| *Choose Mode Dropdown* |
 
 For first-time visitors (who have not yet used the above dialog to set their preferences):
 - When the window width is large (≥ 800 px), the floating button for appearance mode is shown in the bottom-right corner.
@@ -38,7 +38,7 @@ For first-time visitors (who have not yet used the above dialog to set their pre
 
 This UI design choice avoids imposing floating button display on first-time visitors using small-screen devices — where it might feel intrusive — while still allowing them to enable it later through the Appearance Mode menu item.
 
-The blog uses an optional onboarding toast compact box gadget towards the bottom-right corner of the window to inform first-time visitors about the blog's light/dark mode support. Clicking 'Got it' button on the toast box closes it and the visitor will not be shown the toast box again. If the user does not click 'Got it', the toast box will be shown for a maximum of ten times for each visitor.
+The blog uses an onboarding toast compact box (using an optional gadget) towards the bottom-right corner of the window to inform first-time visitors about the blog's light/dark mode support. Clicking 'Got it' button on the toast box closes it and the visitor will not be shown the toast box again. If the user does not click 'Got it', the toast box will be shown for a maximum of ten times for each visitor.
 
 The theme customization also has a small fix for a minor issue in Sidebar (Top) of Contempo Light Theme, which is described in a later part of this document.
 
@@ -46,7 +46,7 @@ Desktop light and dark screenshots can be seen in the [ScrShots](ScrShots) folde
 
 Steps to implement this feature in a Blogger Contempo Light Theme blog
 ===================================================
-1. Save your current them by Theme -> Customize (dropdown) -> Backup.
+1. Save your current theme by Theme -> Customize (dropdown) -> Backup.
 2. Access the Theme HTML editor by navigating to Theme -> Edit HTML.
 3. Add the contents of the file JustBeforeEndHead.html to just before the closing `</head>` tag in your theme's HTML.
 4. Add the contents of the file JustBeforeEndBody.html to just before the closing `</body>` tag in your theme's HTML. You may have to follow any instructions in JustBeforeEndBody.html code to replace && by `&amp;&amp;` in the added code to avoid Blogger Theme HTML editor errors.
@@ -73,6 +73,7 @@ Steps to implement this feature in a Blogger Contempo Light Theme blog
         - If required, replace HTML3 by the id you noted earlier.
         - Save the layout changes.
         - Now the title will show in Layout view only but will not be visible on the live blog.
+    - If you are not using a title for the gadget, you should comment out or delete the above #HTML3 CSS code line.
 
 Now you can test the blog's light/dark mode support. 
 
@@ -95,7 +96,7 @@ This simple fix resolves the issue for the test blogs but I don't know whether i
 
 Author & Initial Publication Date
 -------------------------------
-Ravi S. Iyer with assistance from ChatGPT.  
+Ravi S. Iyer with assistance from ChatGPT. Many thanks to ChatGPT for its assistance.  
 First published: 25 October 2025
 
 License
