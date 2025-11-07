@@ -111,7 +111,7 @@ The simple fix implemented in JustBeforeEndHead.html is given below:
 
 This simple fix resolves the issue for the test blogs but I don't know whether it will trip up any other use cases.
 
-## Author & Initial Publication Date
+## Author & Publication Date
 
 Ravi S. Iyer with assistance from ChatGPT.  
 Current version publication date: 7 November 2025  
