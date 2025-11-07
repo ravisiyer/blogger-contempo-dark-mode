@@ -111,7 +111,7 @@ This simple fix resolves the issue for the test blogs but I don't know whether i
 
 Author & Initial Publication Date
 -------------------------------
-Ravi S. Iyer with assistance from ChatGPT. Many thanks to ChatGPT for its assistance.  
+Ravi S. Iyer with assistance from ChatGPT.
 First published: 25 October 2025
 
 License
